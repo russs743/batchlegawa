@@ -57,6 +57,8 @@ export default function MembersGrid() {
                   src={member.image || member.placeholder}
                   alt={member.name}
                   fill
+                  quality={100}
+                  sizes="(max-width: 768px) 30vw, 20vw"
                   className="object-cover object-top origin-top transform scale-[1.5] md:scale-[1.5]"
                 />
               </div>
@@ -74,6 +76,8 @@ export default function MembersGrid() {
                   src={member.image || member.placeholder}
                   alt={member.name}
                   fill
+                  quality={100}
+                  sizes="(max-width: 768px) 30vw, 20vw"
                   className="object-cover object-top origin-top transform scale-[1.5] md:scale-[1.5] transition-transform duration-700"
                 />
               </div>
