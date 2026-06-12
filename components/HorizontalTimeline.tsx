@@ -83,8 +83,8 @@ export default function HorizontalTimeline() {
       // Set scrolling to true immediately
       setIsScrolling(true);
 
-      // Don't snap if we're outside the timeline boundaries
-      if (latest < 0 || latest > 1) return;
+      // Don't snap if we're outside the timeline boundaries or at the very edges
+      if (latest <= 0.01 || latest >= 0.99) return;
 
       const total = chapters.length;
       const nearestIndex = Math.round(latest * (total - 1));

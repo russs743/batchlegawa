@@ -37,12 +37,7 @@ export default function RosterPage() {
 
   const handleClose = (e: React.MouseEvent) => {
     e.preventDefault();
-    // If there is history, go back to preserve scroll position. Otherwise, go home.
-    if (window.history.length > 2) {
-      router.back();
-    } else {
-      router.push("/");
-    }
+    router.push("/");
   };
 
   return (
@@ -193,8 +188,13 @@ export default function RosterPage() {
               >
                 {isMobile && (
                   <button 
-                    onClick={() => setIsMobileStatsOpen(false)}
-                    className="absolute top-0 right-0 text-theme-text/80 hover:text-theme-text transition-colors p-4"
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setIsMobileStatsOpen(false);
+                    }}
+                    className="absolute top-0 right-0 text-theme-text/80 hover:text-theme-text transition-colors p-4 z-50"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -217,12 +217,15 @@ export default function RosterPage() {
                   </div>
                 ))}
                 
-                <button className="mt-3 md:mt-6 pointer-events-auto w-full py-1.5 md:py-3 px-3 md:px-4 border border-theme-accent/50 hover:bg-theme-accent hover:text-theme-bg text-theme-accent transition-colors duration-300 font-sans text-[0.55rem] md:text-sm tracking-[0.2em] uppercase rounded-full flex items-center justify-center gap-2 group/details">
+                <Link 
+                  href={`/roster/${(activeMember as any).id}`}
+                  className="mt-3 md:mt-6 pointer-events-auto w-full py-1.5 md:py-3 px-3 md:px-4 border border-theme-accent/50 hover:bg-theme-accent hover:text-theme-bg text-theme-accent transition-colors duration-300 font-sans text-[0.55rem] md:text-sm tracking-[0.2em] uppercase rounded-full flex items-center justify-center gap-2 group/details"
+                >
                   <span>View Details</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 md:h-4 md:w-4 transform group-hover/details:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
-                </button>
+                </Link>
               </motion.div>
             )}
           </AnimatePresence>

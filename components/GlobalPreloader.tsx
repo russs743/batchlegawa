@@ -79,7 +79,7 @@ export default function GlobalPreloader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[9999] bg-theme-bg flex flex-col items-center justify-center p-6 pointer-events-auto"
+          className="fixed inset-0 z-9999 bg-theme-bg flex flex-col items-center justify-center p-6 pointer-events-auto"
         >
           <div className="w-full max-w-xs md:max-w-md flex flex-col gap-6 md:gap-8 items-center">
             <div className="relative w-64 h-24 md:w-96 md:h-32 animate-pulse drop-shadow-2xl">
