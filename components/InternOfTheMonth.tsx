@@ -63,17 +63,16 @@ function InternCard({
   return (
     <motion.div
       style={{ y }}
-      className="relative flex-1 h-full overflow-hidden group cursor-pointer border-r border-white/10 last:border-r-0 transition-all duration-500 hover:flex-[1.5]"
+      className="relative w-full h-[40svh] md:h-full overflow-hidden group cursor-pointer border-r border-b md:border-b-0 border-white/10 transition-all duration-500 md:flex-1 md:hover:flex-[1.5] max-md:!transform-none"
     >
       <div className="absolute inset-0 bg-black/40 z-20 transition-colors duration-500 group-hover:bg-black/10 pointer-events-none"></div>
 
       {/* 
         OPTIMIZATION: 
         1. Menggunakan <video> tag langsung dengan 'poster' sebagai pengganti Image. 
-           Ini menghemat DOM node dan otomatis me-load gambar saat video belum jalan.
         2. autoPlay, loop, muted, playsInline: Standar agar video otomatis jalan di semua device tanpa suara.
-        3. Jika HP sedang low-power mode (baterai lemah), HP otomatis tidak menjalankan video 
-           dan hanya menampilkan gambar poster (sangat optimal dan mencegah lag).
+        3. Jika HP sedang low-power mode, HP otomatis tidak menjalankan video 
+           dan hanya menampilkan gambar poster.
       */}
       <video
         src={member.video || "https://www.w3schools.com/html/mov_bbb.mp4"}
@@ -85,11 +84,11 @@ function InternCard({
         className="absolute inset-0 w-full h-full object-cover origin-top transform scale-[1.2] transition-transform duration-700 group-hover:scale-[1.05] z-0"
       />
 
-      <div className="absolute bottom-0 left-0 w-full p-6 md:p-10 z-30 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-linear-to-t from-black/80 via-black/40 to-transparent pointer-events-none">
-        <p className="text-white/70 font-sans text-xs md:text-sm tracking-widest uppercase mb-1">
+      <div className="absolute bottom-0 left-0 w-full p-2 md:p-10 z-30 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none flex flex-col justify-end h-[60%]">
+        <p className="text-white/70 font-sans text-[10px] md:text-sm tracking-widest uppercase mb-0.5 md:mb-1">
           {member.month}
         </p>
-        <h3 className="text-white font-serif text-2xl md:text-4xl font-bold tracking-wide">
+        <h3 className="text-white font-serif text-base md:text-4xl font-bold tracking-wide leading-tight">
           {member.name}
         </h3>
       </div>
@@ -107,15 +106,15 @@ export default function InternOfTheMonth() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[400vh] bg-theme-bg"
+      className="relative w-full md:h-[400vh] bg-theme-bg"
     >
-      <div className="sticky top-0 left-0 w-full h-svh md:h-screen overflow-hidden flex flex-col">
-        <div className="absolute top-0 left-0 w-full flex justify-between items-center px-4 md:px-10 py-6 md:py-10 text-white z-30 pointer-events-none drop-shadow-md">
-          <span className="font-sans text-xs md:text-sm tracking-wider uppercase opacity-70">
+      <div className="md:sticky md:top-0 left-0 w-full h-auto md:h-screen overflow-hidden flex flex-col pb-6 md:pb-0">
+        <div className="relative md:absolute top-0 left-0 w-full flex justify-between items-center px-4 md:px-10 py-6 md:py-10 text-theme-text z-30 pointer-events-none drop-shadow-md">
+          <span className="font-sans text-[10px] md:text-sm tracking-wider uppercase opacity-70">
             Hall of Fame
           </span>
           <h2
-            className="font-serif text-2xl md:text-3xl font-bold uppercase tracking-widest text-center"
+            className="font-serif text-xl md:text-3xl font-bold uppercase tracking-widest text-center"
             style={{ textShadow: "0 4px 24px rgba(0,0,0,0.5)" }}
           >
             Intern of the Month
@@ -125,7 +124,7 @@ export default function InternOfTheMonth() {
           </span>
         </div>
 
-        <div className="relative w-full flex-1 flex flex-row group/grid">
+        <div className="relative w-full grid grid-cols-3 md:flex md:flex-row md:flex-1 group/grid">
           {iotm.map((member, index) => (
             <InternCard
               key={member.name}

@@ -3,6 +3,7 @@
 import { useState, useRef, useTransition, useEffect } from "react";
 import { motion } from "framer-motion";
 import { addComment, updateCommentPosition } from "@/app/actions";
+import { allMembers } from "@/components/MembersGrid";
 
 const colors = [
   "bg-yellow-200 text-yellow-900 border-yellow-300",
@@ -13,12 +14,7 @@ const colors = [
 
 const targets = [
   "Semua (Batch)",
-  "Afia",
-  "Hezky",
-  "Ilham",
-  "Rusydi",
-  "Luna",
-  "Rafi",
+  ...allMembers.map((member) => member.name),
 ];
 
 export default function StickyBoardClient({ initialComments }: { initialComments: any[] }) {
@@ -94,13 +90,13 @@ export default function StickyBoardClient({ initialComments }: { initialComments
       {/* Header with Title and Button */}
       <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 px-2">
         <div className="flex flex-col text-left">
-          <span className="font-sans text-xs md:text-sm tracking-wider uppercase opacity-70 text-white">
+          <span className="font-sans text-xs md:text-sm tracking-wider uppercase opacity-70 text-theme-text">
             Digital Yearbook
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mt-1">
+          <h2 className="font-serif text-3xl md:text-5xl font-bold text-theme-text mt-1">
             Message Board
           </h2>
-          <p className="text-white/60 mt-2 font-sans text-sm md:text-base max-w-md">
+          <p className="text-theme-text/60 mt-2 font-sans text-sm md:text-base max-w-md">
             Tinggalkan pesan untuk para intern dengan menempelkan sticky note!
           </p>
         </div>
@@ -108,7 +104,7 @@ export default function StickyBoardClient({ initialComments }: { initialComments
         {!isAdding && (
           <button
             onClick={handleAddClick}
-            className="group flex items-center gap-2 px-6 py-3 bg-white text-black font-serif font-bold text-base md:text-lg rounded-full shadow-lg hover:scale-105 transition-all duration-300 whitespace-nowrap"
+            className="group flex items-center gap-2 px-6 py-3 bg-theme-text text-theme-bg font-serif font-bold text-base md:text-lg rounded-full shadow-lg hover:scale-105 transition-all duration-300 whitespace-nowrap"
           >
             <span>+ Tulis Sticky Note</span>
           </button>

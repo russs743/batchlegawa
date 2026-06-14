@@ -35,7 +35,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="fixed top-8 right-8 z-50 flex items-center justify-center gap-3 rounded-full border border-theme-border bg-theme-bg/80 px-5 py-3 font-sans text-[0.65rem] font-medium uppercase tracking-[0.2em] text-theme-text backdrop-blur-md transition-all duration-500 hover:scale-105 hover:bg-theme-bg hover:shadow-xl"
+      className="fixed top-8 right-8 z-50 flex items-center justify-center gap-3 rounded-full border border-theme-border bg-theme-bg/80 px-5 py-3 font-sans text-[0.65rem] font-medium uppercase tracking-[0.2em] text-theme-text backdrop-blur-md transition-all duration-500 opacity-50 hover:opacity-100 hover:scale-105 hover:bg-theme-bg hover:shadow-xl"
       aria-label="Toggle Theme"
     >
       {/* Switch Track */}
