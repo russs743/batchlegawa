@@ -4,6 +4,8 @@ import HorizontalTimeline from "@/components/HorizontalTimeline";
 import VideoSection from "@/components/VideoSection";
 import StorySection from "@/components/StorySection";
 import MembersGrid from "@/components/MembersGrid";
+import InternOfTheMonth from "@/components/InternOfTheMonth";
+import StickyBoard from "@/components/StickyBoard";
 
 export default function Home() {
   return (
@@ -12,8 +14,9 @@ export default function Home() {
       <GalleryScroll />
       <HorizontalTimeline />
       <VideoSection />
-      <StorySection />
+      <InternOfTheMonth />
       <MembersGrid />
+      <StickyBoard />
     </main>
   );
 }
