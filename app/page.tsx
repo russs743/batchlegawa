@@ -6,11 +6,14 @@ import StorySection from "@/components/StorySection";
 import MembersGrid from "@/components/MembersGrid";
 import InternOfTheMonth from "@/components/InternOfTheMonth";
 import StickyBoard from "@/components/StickyBoard";
+import { getComments } from "@/app/actions";
 
-export default function Home() {
+export default async function Home() {
+  const comments = await getComments();
+
   return (
     <main className="flex flex-col min-h-screen">
-      <Hero />
+      <Hero comments={comments} />
       <GalleryScroll />
       <HorizontalTimeline />
       <VideoSection />

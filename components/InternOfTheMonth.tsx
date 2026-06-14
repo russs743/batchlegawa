@@ -85,7 +85,7 @@ function InternCard({
         className="absolute inset-0 w-full h-full object-cover origin-top transform scale-[1.2] transition-transform duration-700 group-hover:scale-[1.05] z-0"
       />
 
-      <div className="absolute bottom-0 left-0 w-full p-6 md:p-10 z-30 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none">
+      <div className="absolute bottom-0 left-0 w-full p-6 md:p-10 z-30 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-linear-to-t from-black/80 via-black/40 to-transparent pointer-events-none">
         <p className="text-white/70 font-sans text-xs md:text-sm tracking-widest uppercase mb-1">
           {member.month}
         </p>

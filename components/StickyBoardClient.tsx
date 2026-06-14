@@ -89,12 +89,36 @@ export default function StickyBoardClient({ initialComments }: { initialComments
   };
 
   return (
-    <div className="relative w-full flex flex-col items-center">
+    <div className="relative w-full flex flex-col">
       
+      {/* Header with Title and Button */}
+      <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 px-2">
+        <div className="flex flex-col text-left">
+          <span className="font-sans text-xs md:text-sm tracking-wider uppercase opacity-70 text-white">
+            Digital Yearbook
+          </span>
+          <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mt-1">
+            Message Board
+          </h2>
+          <p className="text-white/60 mt-2 font-sans text-sm md:text-base max-w-md">
+            Tinggalkan pesan untuk para intern dengan menempelkan sticky note!
+          </p>
+        </div>
+
+        {!isAdding && (
+          <button
+            onClick={handleAddClick}
+            className="group flex items-center gap-2 px-6 py-3 bg-white text-black font-serif font-bold text-base md:text-lg rounded-full shadow-lg hover:scale-105 transition-all duration-300 whitespace-nowrap"
+          >
+            <span>+ Tulis Sticky Note</span>
+          </button>
+        )}
+      </div>
+
       {/* Board Canvas */}
       <div 
         ref={boardRef}
-        className="relative w-full h-[800px] md:h-[900px] bg-[#2a2a2a] rounded-3xl overflow-hidden border-[8px] border-[#4a3b32] shadow-inner flex items-center justify-center cursor-crosshair"
+        className="relative w-full h-[800px] md:h-[900px] bg-[#2a2a2a] rounded-3xl overflow-hidden border-8 border-[#4a3b32] shadow-inner flex items-center justify-center cursor-crosshair"
         style={{
           backgroundImage: "radial-gradient(#ffffff11 1px, transparent 1px)",
           backgroundSize: "20px 20px"
@@ -127,7 +151,7 @@ export default function StickyBoardClient({ initialComments }: { initialComments
                 Untuk: {comment.target}
               </span>
             </div>
-            <p className="font-sans text-sm leading-relaxed overflow-hidden break-words">
+            <p className="font-sans text-sm leading-relaxed overflow-hidden wrap-break-word">
               {comment.message}
             </p>
           </motion.div>
@@ -179,7 +203,22 @@ export default function StickyBoardClient({ initialComments }: { initialComments
                 className="w-full bg-black/5 border-b border-black/20 px-2 py-1 text-sm focus:outline-none focus:bg-white/50 resize-none placeholder:text-black/30 text-black font-medium"
               ></textarea>
 
-              <div className="flex gap-2 mt-2">
+              {/* Color Picker */}
+              <div className="flex justify-center gap-3 py-1">
+                {colors.map((c) => (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => setNewNoteColor(c)}
+                    className={`w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 ${c.split(' ')[0]} ${
+                      newNoteColor === c ? 'border-black/60 scale-125 shadow-sm' : 'border-black/10'
+                    }`}
+                    aria-label="Pilih warna"
+                  />
+                ))}
+              </div>
+
+              <div className="flex gap-2 mt-1">
                 <button
                   type="button"
                   onClick={() => setIsAdding(false)}
@@ -197,18 +236,6 @@ export default function StickyBoardClient({ initialComments }: { initialComments
               </div>
             </form>
           </motion.div>
-        )}
-      </div>
-
-      {/* Controls */}
-      <div className="mt-8 z-20">
-        {!isAdding && (
-          <button
-            onClick={handleAddClick}
-            className="group flex items-center gap-3 px-8 py-4 bg-white text-black font-serif font-bold text-lg md:text-xl rounded-full shadow-2xl hover:scale-105 transition-all duration-300"
-          >
-            <span>+ Tulis Sticky Note</span>
-          </button>
         )}
       </div>
 

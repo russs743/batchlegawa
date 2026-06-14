@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 /* ─── Floating particle ─── */
 interface Particle {
@@ -26,7 +27,7 @@ function generateParticles(count: number): Particle[] {
   }));
 }
 
-export default function Hero() {
+export default function Hero({ comments = [] }: { comments?: any[] }) {
   const heroRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const [particles] = useState<Particle[]>(() => generateParticles(18));
@@ -74,20 +75,55 @@ export default function Hero() {
       {/* Background grid */}
       <div className="absolute inset-0 bg-[linear-gradient(var(--grid-line)_1px,transparent_1px),linear-gradient(90deg,var(--grid-line)_1px,transparent_1px)] bg-size-[60px_60px] animate-fade-in after:content-[''] after:absolute after:inset-0 after:bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,transparent_40%,var(--bg)_100%)] transition-colors duration-300" />
 
+      {/* Floating Comments (Whispers of the Batch) */}
+      {mounted && comments.length > 0 && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          {/* Duplicate comments so it's always crowded even if there are only 1 or 2 real comments */}
+          {Array.from({ length: Math.max(20, comments.length) }).map((_, i) => {
+            const comment = comments[i % comments.length];
+            
+            // Predictable randomness based on index
+            const randomX = (i * 23) % 85; // spread horizontally 0-85%
+            const duration = 15 + ((i * 17) % 20); // 15s to 35s
+            const delay = (i * 3) % 15; // 0s to 15s staggered
+            const scale = 0.8 + ((i * 11) % 5) / 10; // 0.8 to 1.2 (slightly bigger)
+
+            return (
+              <motion.div
+                key={`bg-comment-${comment.id}-${i}`}
+                initial={{ y: "110vh", x: `${randomX}vw`, opacity: 0, scale }}
+                animate={{ 
+                  y: "-20vh", 
+                  opacity: [0, 0.7, 0.7, 0], // Much higher opacity
+                }}
+                transition={{
+                  duration: duration,
+                  repeat: Infinity,
+                  delay: delay,
+                  ease: "linear"
+                }}
+                // Changed text color to be more visible (reddish orange to match theme, with higher opacity)
+                className="absolute whitespace-nowrap text-[#B24A2B]/40 dark:text-white/40 font-serif italic text-2xl lg:text-4xl font-bold max-w-lg truncate"
+              >
+                "{comment.message}" — {comment.name}
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
+
       {/* Corner decorations */}
       <div className="absolute z-10 w-6 h-6 sm:w-10 sm:h-10 opacity-0 animate-fade-in [animation-delay:2200ms] top-6 left-6 border-t border-l border-theme-border" />
       <div className="absolute z-10 w-6 h-6 sm:w-10 sm:h-10 opacity-0 animate-fade-in [animation-delay:2200ms] top-6 right-6 border-t border-r border-theme-border" />
       <div className="absolute z-10 w-6 h-6 sm:w-10 sm:h-10 opacity-0 animate-fade-in [animation-delay:2200ms] bottom-18 left-6 border-b border-l border-theme-border" />
       <div className="absolute z-10 w-6 h-6 sm:w-10 sm:h-10 opacity-0 animate-fade-in [animation-delay:2200ms] bottom-18 right-6 border-b border-r border-theme-border" />
 
-      {/* Side labels removed as requested */}
-
       {/* Floating particles */}
       {mounted &&
         particles.map((p) => (
           <div
             key={p.id}
-            className="absolute rounded-full bg-(--particle-bg) pointer-events-none transition-colors duration-300"
+            className="absolute z-0 rounded-full bg-(--particle-bg) pointer-events-none transition-colors duration-300"
             style={{
               left: `${p.x}%`,
               width: `${p.size}px`,
