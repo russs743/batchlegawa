@@ -47,8 +47,7 @@ const chapters = [
     title: "Chapter V: Deepening Roots",
     description:
       "A moment of reflection, recognizing the depth of our connection.",
-    image:
-      "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260506-WA00292.jpg",
+    image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260506-WA00292.jpg",
     video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.mp4",
     align: "top",
   },

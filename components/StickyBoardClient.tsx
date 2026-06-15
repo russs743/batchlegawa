@@ -96,9 +96,6 @@ export default function StickyBoardClient({ initialComments }: { initialComments
           <h2 className="font-serif text-3xl md:text-5xl font-bold text-theme-text mt-1">
             Message Board
           </h2>
-          <p className="text-theme-text/60 mt-2 font-sans text-sm md:text-base max-w-md">
-            Tinggalkan pesan untuk para intern dengan menempelkan sticky note!
-          </p>
         </div>
 
         {!isAdding && (

@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const iotm = [
-  { month: "January", name: "Afia", image: "/interns/fia.jpg", dir: -1 },
+  { month: "January", name: "Afia", image: "/interns/fia.jpg", dir: -1, video: "/iotm/Fia.mp4" },
   {
     month: "February",
     name: "Hezky",
@@ -27,7 +27,7 @@ const iotm = [
     dir: 1,
     video: "/iotm/Rusydi.mp4",
   },
-  { month: "May", name: "Luna", image: "/interns/luna.jpg", dir: -1 },
+  { month: "May", name: "Luna", image: "/interns/luna.jpg", dir: -1, video: "/iotm/Luna.mp4" },
   {
     month: "June",
     name: "Rafi",
@@ -63,7 +63,7 @@ function InternCard({
   return (
     <motion.div
       style={{ y }}
-      className="relative w-full h-[40svh] md:h-full overflow-hidden group cursor-pointer border-r border-b md:border-b-0 border-white/10 transition-all duration-500 md:flex-1 md:hover:flex-[1.5] max-md:!transform-none"
+      className="relative w-full h-[50svh] md:h-full overflow-hidden group cursor-pointer border-r border-b md:border-b-0 border-white/10 transition-all duration-500 md:flex-1 md:hover:flex-[1.5] max-md:transform-none!"
     >
       <div className="absolute inset-0 bg-black/40 z-20 transition-colors duration-500 group-hover:bg-black/10 pointer-events-none"></div>
 
@@ -84,7 +84,7 @@ function InternCard({
         className="absolute inset-0 w-full h-full object-cover origin-top transform scale-[1.2] transition-transform duration-700 group-hover:scale-[1.05] z-0"
       />
 
-      <div className="absolute bottom-0 left-0 w-full p-2 md:p-10 z-30 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none flex flex-col justify-end h-[60%]">
+      <div className="absolute bottom-0 left-0 w-full p-3 pb-4 md:p-10 z-30 translate-y-0 md:translate-y-4 group-hover:translate-y-0 transition-transform duration-500 bg-linear-to-t from-black/90 via-black/40 to-transparent pointer-events-none flex flex-col justify-end h-[60%]">
         <p className="text-white/70 font-sans text-[10px] md:text-sm tracking-widest uppercase mb-0.5 md:mb-1">
           {member.month}
         </p>
@@ -108,8 +108,8 @@ export default function InternOfTheMonth() {
       ref={containerRef}
       className="relative w-full md:h-[400vh] bg-theme-bg"
     >
-      <div className="md:sticky md:top-0 left-0 w-full h-auto md:h-screen overflow-hidden flex flex-col pb-6 md:pb-0">
-        <div className="relative md:absolute top-0 left-0 w-full flex justify-between items-center px-4 md:px-10 py-6 md:py-10 text-theme-text z-30 pointer-events-none drop-shadow-md">
+      <div className="md:sticky md:top-0 left-0 w-full h-auto md:h-screen overflow-hidden flex flex-col pb-0">
+        <div className="absolute top-0 left-0 w-full flex justify-between items-center px-4 md:px-10 py-6 md:py-10 text-white z-30 pointer-events-none drop-shadow-md">
           <span className="font-sans text-[10px] md:text-sm tracking-wider uppercase opacity-70">
             Hall of Fame
           </span>

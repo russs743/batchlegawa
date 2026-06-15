@@ -1,0 +1,310 @@
+"use client";
+
+import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
+import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
+
+const chapters = [
+  {
+    id: 1,
+    title: "Chapter I: The Beginning",
+    description: "Where our paths first crossed and the foundation of our journey was laid.",
+    image: "/kelas(2).jpg",
+  },
+  {
+    id: 2,
+    title: "Chapter II: Finding Rhythm",
+    description: "Learning to synchronize our steps and harmonize our diverse perspectives.",
+    image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260119-WA0105.jpg",
+  },
+  {
+    id: 3,
+    title: "Chapter III: Breaking Boundaries",
+    description: "Pushing past our comfort zones to explore what lies beyond the horizon.",
+    image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260308-WA0027.jpg",
+  },
+  {
+    id: 4,
+    title: "Chapter IV: Shared Triumphs",
+    description: "Celebrating the small victories that forged our indestructible bond.",
+    image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260318-WA00612.jpg",
+  },
+  {
+    id: 5,
+    title: "Chapter V: Deepening Roots",
+    description: "A moment of reflection, recognizing the depth of our connection.",
+    image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260506-WA00292.jpg",
+  },
+  {
+    id: 6,
+    title: "Chapter VI: Moving Forward",
+    description: "Thirteen unique paths converging into a single, unstoppable force.",
+    image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=800&auto=format&fit=crop",
+  },
+];
+
+const RADIUS_PX = 300;
+
+function OrbitNode({
+  chapter,
+  index,
+  total,
+  globalRotation,
+  ringTiltScale,
+  isPhase3,
+  activeIndex
+}: {
+  chapter: any;
+  index: number;
+  total: number;
+  globalRotation: MotionValue<number>;
+  ringTiltScale: MotionValue<number>;
+  isPhase3: boolean;
+  activeIndex: number;
+}) {
+  const baseAngle = (index / total) * 360;
+  
+  const xPos = useTransform([globalRotation, ringTiltScale], ([rot, tilt]: any[]) => {
+    const angleRad = (baseAngle + rot - 90) * (Math.PI / 180);
+    return RADIUS_PX * Math.cos(angleRad);
+  });
+  
+  const yPos = useTransform([globalRotation, ringTiltScale], ([rot, tilt]: any[]) => {
+    const angleRad = (baseAngle + rot - 90) * (Math.PI / 180);
+    return RADIUS_PX * tilt * Math.sin(angleRad);
+  });
+  
+  const isActive = isPhase3 && index === activeIndex;
+  
+  const nodeOpacity = isPhase3 ? (isActive ? 1 : 0.4) : 1;
+  const nodeScale = isPhase3 ? (isActive ? 1.0 : 0.6) : 1;
+
+  return (
+    // Memastikan sumbu X dan Y titik pusat 0,0 berada persis di tengah layar
+    <motion.div 
+      className="absolute top-1/2 left-1/2 will-change-transform"
+      style={{
+        x: xPos,
+        y: yPos,
+      }}
+    >
+      {/* Menengahkan gambar pada titik pusatnya sendiri */}
+      <div className="-translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center">
+        <motion.div 
+          animate={{ opacity: nodeOpacity, scale: nodeScale }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className={`relative overflow-hidden rounded-full shadow-2xl bg-black/10 dark:bg-white/10 transition-all duration-700
+            w-16 h-16 md:w-28 md:h-28
+            ${isActive ? 'ring-4 md:ring-[6px] ring-theme-accent ring-offset-4 ring-offset-theme-bg shadow-[0_0_40px_rgba(0,0,0,0.5)] z-20' : 'z-10'}
+          `}
+        >
+          <Image
+            src={chapter.image}
+            alt={chapter.title}
+            fill
+            sizes="(max-width: 768px) 30vw, 20vw"
+            className="object-cover transition-transform duration-1000 hover:scale-110 cursor-pointer"
+          />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function CircularHistory() {
+  const containerRef = useRef<HTMLElement>(null);
+  const total = chapters.length;
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 40,
+    damping: 15,
+    restDelta: 0.001
+  });
+
+  const [isPhase3, setIsPhase3] = useState(false);
+  const [activeItem, setActiveItem] = useState(0);
+
+  const navRotationOffset = useSpring(0, { stiffness: 60, damping: 20 });
+  const targetRotationRef = useRef(0);
+  
+  const [targetX, setTargetX] = useState(5.0 * RADIUS_PX);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        // Mobile: Tetap di tengah (Center)
+        setTargetX(5.0 * RADIUS_PX);
+      } else {
+        // Desktop: Geser gambar ke kiri sebesar 22% lebar layar agar seimbang dengan teks di kanan
+        const offsetLeft = -0.22 * window.innerWidth;
+        setTargetX(5.0 * RADIUS_PX + offsetLeft);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // PETA ANIMASI SCROLL
+  // 0.00 - 0.15 : Cincin bangun dari lonjong menjadi bulat
+  const ringTiltScale = useTransform(smoothProgress, [0, 0.15], [0.35, 1]);
+  
+  // 0.00 - 0.75 : Pengaturan Skala (Zoom-In Ekstrem pada fase akhir)
+  const ringScale = useTransform(smoothProgress, 
+    [0, 0.15, 0.4, 0.5, 0.75, 1], 
+    [0.4, 0.8, 0.8, 1.2, 5.0, 5.0]
+  );
+  
+  // 0.50 - 0.75 : Panning Kamera (Menggeser cincin ke targetX responsif)
+  const ringTranslateProgress = useTransform(smoothProgress, [0.5, 0.75, 1], [0, 1, 1]);
+  const ringTranslateX = useTransform(ringTranslateProgress, (p) => p * targetX);
+
+  // 0.10 - 0.50 : Berputar searah jarum jam untuk membawa Index 0 ke posisi Kiri (270 derajat)
+  const scrollRotateZ = useTransform(smoothProgress, [0, 0.1, 0.5, 1], [0, 0, 270, 270]);
+
+  const globalRotateZ = useTransform(() => scrollRotateZ.get() + navRotationOffset.get());
+
+  const centerTextOpacity = useTransform(smoothProgress, [0.4, 0.5], [1, 0]);
+  const focusUiOpacity = useTransform(smoothProgress, [0.7, 0.75], [0, 1]);
+
+  useEffect(() => {
+    const unsubscribe = smoothProgress.on("change", (v) => {
+      // Masuk Fase Fokus (Zoomed)
+      if (v > 0.7 && !isPhase3) {
+        setIsPhase3(true);
+        setActiveItem(0); 
+        targetRotationRef.current = 0;
+        navRotationOffset.set(0); 
+      } 
+      // Keluar Fase Fokus
+      else if (v <= 0.7 && isPhase3) {
+        setIsPhase3(false);
+        targetRotationRef.current = 0;
+        navRotationOffset.set(0); 
+      }
+    });
+    return () => unsubscribe();
+  }, [smoothProgress, isPhase3, navRotationOffset]);
+
+  const nextItem = () => {
+    setActiveItem((prev) => (prev + 1) % total);
+    targetRotationRef.current -= (360 / total);
+    navRotationOffset.set(targetRotationRef.current);
+  };
+
+  const prevItem = () => {
+    setActiveItem((prev) => (prev - 1 + total) % total);
+    targetRotationRef.current += (360 / total);
+    navRotationOffset.set(targetRotationRef.current);
+  };
+
+  return (
+    <section
+      ref={containerRef}
+      // HEIGHT 600VH: Memberikan "Bantalan Scroll" ekstra panjang di bagian bawah
+      // Ini mencegah halaman langsung ter-scroll ke atas setelah efek Zoom selesai!
+      className="relative w-full h-[600vh] bg-theme-bg"
+    >
+      <div className="sticky top-0 w-full h-screen overflow-hidden bg-theme-bg">
+        
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_30%,var(--color-theme-bg)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_30%,#000000_100%)] z-0" />
+
+        {/* CONTAINER CINCIN: Ditengahkan persis di layar */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <motion.div
+            style={{ 
+              scale: ringScale,
+              x: ringTranslateX,
+            }}
+            className="relative will-change-transform"
+          >
+            {chapters.map((chapter, index) => (
+              <OrbitNode 
+                key={chapter.id}
+                chapter={chapter}
+                index={index}
+                total={total}
+                globalRotation={globalRotateZ}
+                ringTiltScale={ringTiltScale}
+                isPhase3={isPhase3}
+                activeIndex={activeItem}
+              />
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Teks Tengah Awal */}
+        <motion.div 
+          style={{ opacity: centerTextOpacity }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center pointer-events-none z-30 max-w-sm text-center px-4"
+        >
+          <p className="font-sans text-sm md:text-base text-theme-text/80 dark:text-white/80 leading-relaxed font-medium drop-shadow-sm">
+            Thirteen paths forged into one history. Explore the journey of our high-growth chapter.
+          </p>
+        </motion.div>
+
+        {/* UI Zoom (Panah & Judul - Split Screen Layout) */}
+        <motion.div 
+          style={{ opacity: focusUiOpacity, pointerEvents: isPhase3 ? 'auto' : 'none' }}
+          className="absolute inset-0 z-40 flex flex-col md:flex-row items-center justify-end pb-12 md:pb-0 px-6 md:pr-24 lg:pr-40"
+        >
+          {/* Kontainer Teks Kanan */}
+          <div className="w-full md:w-[45%] lg:w-[40%] flex flex-col justify-end md:justify-center items-center md:items-start h-full pb-8 md:pb-0">
+            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-theme-text dark:text-white drop-shadow-lg text-center md:text-left">
+              {chapters[activeItem].title}
+            </h2>
+            <p className="font-sans mt-3 md:mt-6 text-sm md:text-lg text-theme-muted dark:text-white/80 max-w-md text-center md:text-left">
+              {chapters[activeItem].description}
+            </p>
+          </div>
+
+          {/* Navigasi Desktop (Tengah Kanan, Susunan Atas-Bawah) */}
+          <div className="hidden md:flex flex-col gap-4 absolute top-1/2 -translate-y-1/2 right-12 lg:right-20">
+            <button 
+              onClick={prevItem}
+              className="w-14 h-14 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+              aria-label="Previous"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+              </svg>
+            </button>
+            <button 
+              onClick={nextItem}
+              className="w-14 h-14 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+              aria-label="Next"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+          </div>
+
+          {/* Navigasi Mobile (Bawah Kiri Kanan) */}
+          <div className="absolute md:hidden bottom-6 left-6">
+            <button 
+              onClick={prevItem}
+              className="w-12 h-12 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+            >
+              ←
+            </button>
+          </div>
+          <div className="absolute md:hidden bottom-6 right-6">
+            <button 
+              onClick={nextItem}
+              className="w-12 h-12 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+            >
+              →
+            </button>
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}
