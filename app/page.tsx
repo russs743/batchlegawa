@@ -8,6 +8,7 @@ import InternOfTheMonth from "@/components/InternOfTheMonth";
 import MomentsSection from "@/components/MomentsSection";
 import StickyBoard from "@/components/StickyBoard";
 import { getComments } from "@/app/actions";
+import PacmanTrigger from "@/components/PacmanTrigger";
 
 export default async function Home() {
   const comments = await getComments();
@@ -23,6 +24,7 @@ export default async function Home() {
       <CircularHistory />
       <MembersGrid />
       <StickyBoard />
+      <PacmanTrigger />
     </main>
   );
 }
