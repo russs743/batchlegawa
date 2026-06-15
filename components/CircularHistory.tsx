@@ -7,39 +7,45 @@ import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-
 const chapters = [
   {
     id: 1,
-    title: "Chapter I: The Beginning",
-    description: "Where our paths first crossed and the foundation of our journey was laid.",
-    image: "/kelas(2).jpg",
+    title: "'Siapa' Legawa",
+    description: "Enam bulan bareng yang nggak selalu mulus. Di momen ini semua uneg-uneg dan kekesalan ditumpahin, tapi ujung-ujungnya tetep saling memaafkan dan ketawa bareng lagi.",
+    image: "/Story/Siapa/Main.jpg",
+    video: "/Story/Siapa/Video.mp4"
   },
   {
     id: 2,
-    title: "Chapter II: Finding Rhythm",
-    description: "Learning to synchronize our steps and harmonize our diverse perspectives.",
-    image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260119-WA0105.jpg",
+    title: "Reveal Legawa",
+    description: "Momen syuting video klip dance yang super keren! Di sini kami memperkenalkan setiap member Batch Legawa dengan gaya yang enerjik dan penuh semangat.",
+    image: "/Story/Reveal/Main.jpeg",
+    video: "/Story/Reveal/Video.mp4"
   },
   {
     id: 3,
-    title: "Chapter III: Breaking Boundaries",
-    description: "Pushing past our comfort zones to explore what lies beyond the horizon.",
-    image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260308-WA0027.jpg",
+    title: "Visit FCN",
+    description: "Keseruan satu batch jalan-jalan bareng visit company ke Future Creative Network (FCN). Nambah wawasan keren sekaligus momen bonding yang nggak terlupakan!",
+    image: "/Story/VisitFCN/Main.jpg",
+    video: "/Story/VisitFCN/Video.mp4"
   },
   {
     id: 4,
-    title: "Chapter IV: Shared Triumphs",
-    description: "Celebrating the small victories that forged our indestructible bond.",
-    image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260318-WA00612.jpg",
+    title: "First Day!",
+    description: "Hari pertama kumpul! Masih pada canggung dan malu-malu, tapi dari sinilah awal perjalanan panjang dan pertemanan seru kami dimulai.",
+    image: "/Story/FistDay/Main.jpg",
+    video: "/Story/FistDay/Video.mp4"
   },
   {
     id: 5,
-    title: "Chapter V: Deepening Roots",
-    description: "A moment of reflection, recognizing the depth of our connection.",
-    image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260506-WA00292.jpg",
+    title: "A Day at Luna's",
+    description: "Quality time bareng di minggu kedua. Seharian penuh kita berenang, BBQ-an, sampai karaoke santai untuk ngelepas penat dan bikin ikatan batch ini makin solid.",
+    image: "/Story/rumahLuna/Main.jpg",
+    video: "/Story/rumahLuna/Video.mp4"
   },
   {
     id: 6,
-    title: "Chapter VI: Moving Forward",
-    description: "Thirteen unique paths converging into a single, unstoppable force.",
-    image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=800&auto=format&fit=crop",
+    title: "Photoshoot Poster Batch",
+    description: "Di balik layar keseruan photoshoot buat poster resmi batch kita. Gaya udah paling maksimal buat unjuk gigi formasi lengkap dan pesona anak-anak Legawa!",
+    image: "/Story/PhotoshootPoster/Main.jpg",
+    video: "/Story/PhotoshootPoster/Video.mp4"
   },
 ];
 
@@ -102,7 +108,10 @@ function OrbitNode({
             src={chapter.image}
             alt={chapter.title}
             fill
-            sizes="(max-width: 768px) 30vw, 20vw"
+            // Kita naikkan drastis request ukurannya ke Next.js (800px) 
+            // Karena gambar ini nantinya akan di-Zoom 5x lipat!
+            sizes="(max-width: 768px) 400px, 800px"
+            priority={index === 0 || index === 1}
             className="object-cover transition-transform duration-1000 hover:scale-110 cursor-pointer"
           />
         </motion.div>
@@ -133,10 +142,13 @@ export default function CircularHistory() {
   const targetRotationRef = useRef(0);
   
   const [targetX, setTargetX] = useState(5.0 * RADIUS_PX);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) {
         // Mobile: Tetap di tengah (Center)
         setTargetX(5.0 * RADIUS_PX);
       } else {
@@ -154,11 +166,17 @@ export default function CircularHistory() {
   // 0.00 - 0.15 : Cincin bangun dari lonjong menjadi bulat
   const ringTiltScale = useTransform(smoothProgress, [0, 0.15], [0.35, 1]);
   
-  // 0.00 - 0.75 : Pengaturan Skala (Zoom-In Ekstrem pada fase akhir)
-  const ringScale = useTransform(smoothProgress, 
+  // 0.00 - 0.75 : Pengaturan Skala
+  const desktopScale = useTransform(smoothProgress, 
     [0, 0.15, 0.4, 0.5, 0.75, 1], 
     [0.4, 0.8, 0.8, 1.2, 5.0, 5.0]
   );
+  const mobileScale = useTransform(smoothProgress, 
+    [0, 0.15, 0.4, 0.5, 0.75, 1], 
+    [0.4, 0.8, 0.8, 1.2, 3.2, 3.2] // Zoom lebih kecil di HP agar tidak menutupi teks
+  );
+  
+  const ringScale = isMobile ? mobileScale : desktopScale;
   
   // 0.50 - 0.75 : Panning Kamera (Menggeser cincin ke targetX responsif)
   const ringTranslateProgress = useTransform(smoothProgress, [0.5, 0.75, 1], [0, 1, 1]);
@@ -212,10 +230,32 @@ export default function CircularHistory() {
     >
       <div className="sticky top-0 w-full h-screen overflow-hidden bg-theme-bg">
         
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_30%,var(--color-theme-bg)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_30%,#000000_100%)] z-0" />
+        {/* Latar Belakang Video (Terlihat Saat Fase Zoom) */}
+        <motion.div 
+          style={{ opacity: focusUiOpacity }}
+          className="absolute inset-0 z-1 overflow-hidden pointer-events-none"
+        >
+          {chapters.map((chapter: any, index: number) => (
+            chapter.video && (
+              <video
+                key={`bg-video-${chapter.id}`}
+                src={chapter.video}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                  activeItem === index ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            )
+          ))}
+          {/* Overlay gelap agar foto dan teks tetap kontras */}
+          <div className="absolute inset-0 bg-theme-bg/80 dark:bg-black/80" />
+        </motion.div>
 
         {/* CONTAINER CINCIN: Ditengahkan persis di layar */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center z-10">
           <motion.div
             style={{ 
               scale: ringScale,
