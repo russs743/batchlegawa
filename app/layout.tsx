@@ -25,7 +25,8 @@ export const metadata: Metadata = {
     "Legawa: a state of calm liberation — a moment when acceptance turns into freedom, where you move and breathe without resistance, and growth feels effortless and true. Cretivox Internship Experience II, Batch 4.",
   openGraph: {
     title: "Legawa — Cretivox Internship Experience II",
-    description: "A state of calm liberation. Batch 4 of Cretivox Internship Experience.",
+    description:
+      "A state of calm liberation. Batch 4 of Cretivox Internship Experience.",
     type: "website",
   },
 };
@@ -44,9 +45,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <GlobalPreloader />
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+        <SmoothScroll>{children}</SmoothScroll>
         <ThemeToggle />
       </body>
     </html>

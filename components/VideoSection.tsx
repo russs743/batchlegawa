@@ -1,7 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, MotionValue, useMotionValueEvent } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  MotionValue,
+  useMotionValueEvent,
+} from "framer-motion";
 
 const words = ["Skip", "the", "reading.", "Feel", "the", "rhythm."];
 
@@ -25,21 +31,38 @@ export default function VideoSection() {
   });
 
   const videoY = useTransform(scrollYProgress, [0.4, 0.6], ["100vh", "0vh"]);
-  const videoWidth = useTransform(scrollYProgress, [0.6, 0.9], ["60vw", "100vw"]);
-  const videoHeight = useTransform(scrollYProgress, [0.6, 0.9], ["40vh", "100vh"]);
-  const videoBorderRadius = useTransform(scrollYProgress, [0.6, 0.9], ["16px", "0px"]);
+  const videoWidth = useTransform(
+    scrollYProgress,
+    [0.6, 0.9],
+    ["60vw", "100vw"],
+  );
+  const videoHeight = useTransform(
+    scrollYProgress,
+    [0.6, 0.9],
+    ["40vh", "100vh"],
+  );
+  const videoBorderRadius = useTransform(
+    scrollYProgress,
+    [0.6, 0.9],
+    ["16px", "0px"],
+  );
 
   return (
-    <section 
-      ref={containerRef} 
+    <section
+      ref={containerRef}
       className="relative w-full bg-theme-bg h-[400vh]"
     >
       <div className="sticky top-0 w-full h-screen flex flex-col items-center justify-center overflow-hidden">
-        
         {/* Text Container */}
         <div className="absolute top-1/2 -translate-y-1/2 flex flex-wrap justify-center gap-x-3 gap-y-2 px-4 max-w-5xl z-10">
           {words.map((word, i) => (
-            <Word key={i} word={word} i={i} total={words.length} scrollYProgress={scrollYProgress} />
+            <Word
+              key={i}
+              word={word}
+              i={i}
+              total={words.length}
+              scrollYProgress={scrollYProgress}
+            />
           ))}
         </div>
 
@@ -64,15 +87,24 @@ export default function VideoSection() {
             preload="metadata"
           />
         </motion.div>
-
       </div>
     </section>
   );
 }
 
-function Word({ word, i, total, scrollYProgress }: { word: string, i: number, total: number, scrollYProgress: MotionValue<number> }) {
+function Word({
+  word,
+  i,
+  total,
+  scrollYProgress,
+}: {
+  word: string;
+  i: number;
+  total: number;
+  scrollYProgress: MotionValue<number>;
+}) {
   const start = i * (0.4 / total);
-  const end = start + (0.4 / total);
+  const end = start + 0.4 / total;
   const opacity = useTransform(scrollYProgress, [start, end], [0, 1]);
   const y = useTransform(scrollYProgress, [start, end], [20, 0]);
 

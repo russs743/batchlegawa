@@ -30,7 +30,7 @@ export default function PacmanModal({ isOpen, onClose }: PacmanModalProps) {
           initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
           animate={{ opacity: 1, backdropFilter: "blur(12px)" }}
           exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 md:p-8"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-4 md:p-8"
         >
           {/* Overlay to close on click outside (optional, maybe better not to close accidentally during gameplay) */}
           <div className="absolute inset-0 z-0" />

@@ -16,7 +16,7 @@ export default function PacmanTrigger() {
         transition={{ delay: 1, type: "spring" }}
         whileHover={{ scale: 1.1, rotate: 10 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-6 left-6 z-[90] flex items-center justify-center w-14 h-14 bg-yellow-400 text-black rounded-full shadow-[0_0_20px_rgba(250,204,21,0.5)] cursor-pointer overflow-hidden border-2 border-transparent hover:border-black transition-colors"
+        className="fixed bottom-6 left-6 z-90 flex items-center justify-center w-14 h-14 bg-yellow-400 text-black rounded-full shadow-[0_0_20px_rgba(250,204,21,0.5)] cursor-pointer overflow-hidden border-2 border-transparent hover:border-black transition-colors"
         title="Play Legawa Pac-Man"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

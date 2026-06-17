@@ -12,13 +12,13 @@ export default function GlobalPreloader() {
 
   useEffect(() => {
     setIsMounted(true);
-    
+
     // Minimum time to show the intro (2.5 seconds)
     const minLoadTime = 2500;
     const startTime = Date.now();
 
     const urlsToPreload = new Set<string>();
-    
+
     // Global hero assets or other images could be added here
     urlsToPreload.add("/legawa-logo.png");
 
@@ -83,11 +83,11 @@ export default function GlobalPreloader() {
         >
           <div className="w-full max-w-xs md:max-w-md flex flex-col gap-6 md:gap-8 items-center">
             <div className="relative w-64 h-24 md:w-96 md:h-32 animate-pulse drop-shadow-2xl">
-              <Image 
-                src="/legawa-logo.png" 
-                alt="Legawa Logo" 
-                fill 
-                className="object-contain filter-(--logo-filter)" 
+              <Image
+                src="/legawa-logo.png"
+                alt="Legawa Logo"
+                fill
+                className="object-contain filter-(--logo-filter)"
               />
             </div>
             <div className="w-full h-1.5 bg-theme-border/30 rounded-full overflow-hidden relative">

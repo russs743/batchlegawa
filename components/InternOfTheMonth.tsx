@@ -5,7 +5,13 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const iotm = [
-  { month: "January", name: "Afia", image: "/interns/fia.jpg", dir: -1, video: "/iotm/Fia.mp4" },
+  {
+    month: "January",
+    name: "Afia",
+    image: "/interns/fia.jpg",
+    dir: -1,
+    video: "/iotm/Fia.mp4",
+  },
   {
     month: "February",
     name: "Hezky",
@@ -27,7 +33,13 @@ const iotm = [
     dir: 1,
     video: "/iotm/Rusydi.mp4",
   },
-  { month: "May", name: "Luna", image: "/interns/luna.jpg", dir: -1, video: "/iotm/Luna.mp4" },
+  {
+    month: "May",
+    name: "Luna",
+    image: "/interns/luna.jpg",
+    dir: -1,
+    video: "/iotm/Luna.mp4",
+  },
   {
     month: "June",
     name: "Rafi",
