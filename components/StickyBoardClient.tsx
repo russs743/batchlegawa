@@ -2,7 +2,7 @@
 
 import { useState, useRef, useTransition, useEffect } from "react";
 import { motion } from "framer-motion";
-import { addComment, updateCommentPosition } from "@/app/actions";
+import { addComment, updateCommentPosition, getComments } from "@/app/actions";
 import { allMembers } from "@/components/MembersGrid";
 
 const colors = [
@@ -22,9 +22,32 @@ export default function StickyBoardClient({ initialComments }: { initialComments
   const newNoteRef = useRef<HTMLDivElement>(null);
   const [isAdding, setIsAdding] = useState(false);
   
+  // Pagination State
+  const [displayedComments, setDisplayedComments] = useState(initialComments);
+  const [hasMore, setHasMore] = useState(initialComments.length >= 30);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
   // New Note State
   const [newNoteColor, setNewNoteColor] = useState(colors[0]);
   const [isPending, startTransition] = useTransition();
+
+  const handleLoadMore = async () => {
+    if (isLoadingMore || !hasMore) return;
+    setIsLoadingMore(true);
+    try {
+      const moreComments = await getComments(30, displayedComments.length);
+      if (moreComments.length > 0) {
+        setDisplayedComments(prev => [...prev, ...moreComments]);
+      }
+      if (moreComments.length < 30) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error("Failed to load more comments:", error);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
 
   const handleAddClick = () => {
     setIsAdding(true);
@@ -118,7 +141,7 @@ export default function StickyBoardClient({ initialComments }: { initialComments
         }}
       >
         {/* Render existing comments */}
-        {initialComments.map((comment) => (
+        {displayedComments.map((comment) => (
           <motion.div
             key={comment.id}
             drag
@@ -149,6 +172,19 @@ export default function StickyBoardClient({ initialComments }: { initialComments
             </p>
           </motion.div>
         ))}
+
+        {/* Load More Button */}
+        {hasMore && (
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40">
+            <button
+              onClick={handleLoadMore}
+              disabled={isLoadingMore}
+              className="px-6 py-2 bg-black/60 hover:bg-black/80 backdrop-blur-md text-white rounded-full font-serif font-bold text-sm md:text-base border border-white/20 shadow-xl transition-all duration-300 disabled:opacity-50"
+            >
+              {isLoadingMore ? "Loading..." : "Muat Lebih Banyak"}
+            </button>
+          </div>
+        )}
 
         {/* New Interactive Sticky Note */}
         {isAdding && (

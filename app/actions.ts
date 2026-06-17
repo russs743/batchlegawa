@@ -93,10 +93,10 @@ export async function updateCommentPosition(id: number, x: number, y: number) {
   }
 }
 
-export async function getComments() {
+export async function getComments(limit: number = 30, offset: number = 0) {
   try {
-    // Fetch comments ordered by newest first
-    const { rows } = await sql`SELECT * FROM comments ORDER BY created_at DESC LIMIT 100`;
+    // Fetch comments ordered by newest first with pagination
+    const { rows } = await sql`SELECT * FROM comments ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`;
     return rows;
   } catch (error: any) {
     // If the error is that the relation doesn't exist, it means the table hasn't been created yet.
@@ -106,6 +106,16 @@ export async function getComments() {
       return []; // Return empty array since table was just created
     }
     console.error("Error fetching comments:", error);
+    return [];
+  }
+}
+
+export async function getAllComments() {
+  try {
+    const { rows } = await sql`SELECT * FROM comments ORDER BY created_at DESC`;
+    return rows;
+  } catch (error: any) {
+    console.error("Error fetching all comments:", error);
     return [];
   }
 }
