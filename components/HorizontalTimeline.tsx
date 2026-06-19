@@ -11,7 +11,7 @@ const chapters = [
     description:
       "Where our paths first crossed and the foundation of our journey was laid.",
     image: "/kelas(2).jpg",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/0610.webm",
+    video: "/Chapter/Chapter1.webm",
     align: "top",
   },
   {
@@ -20,7 +20,7 @@ const chapters = [
     description:
       "Learning to synchronize our steps and harmonize our diverse perspectives.",
     image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260119-WA0105.jpg",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/0610(1).webm",
+    video: "/Chapter/Chapter2.webm",
     align: "bottom",
   },
   {
@@ -29,7 +29,7 @@ const chapters = [
     description:
       "Pushing past our comfort zones to explore what lies beyond the horizon.",
     image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260308-WA0027.jpg",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/0610(2).webm",
+    video: "/Chapter/Chapter3.webm",
     align: "top",
   },
   {
@@ -39,7 +39,7 @@ const chapters = [
       "Celebrating the small victories that forged our indestructible bond.",
     image:
       "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260318-WA00612.jpg?updatedAt=1781149817571",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.webm",
+    video: "/Chapter/Chapter3.webm",
     align: "bottom",
   },
   {
@@ -48,7 +48,7 @@ const chapters = [
     description:
       "A moment of reflection, recognizing the depth of our connection.",
     image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260506-WA00292.jpg",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.webm",
+    video: "/Chapter/Chapter3.webm",
     align: "top",
   },
   {
@@ -58,7 +58,7 @@ const chapters = [
       "Thirteen unique paths converging into a single, unstoppable force.",
     image:
       "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=800&auto=format&fit=crop",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.webm",
+    video: "/Chapter/Chapter3.webm",
     align: "bottom",
   },
 ];
@@ -91,7 +91,7 @@ export default function HorizontalTimeline() {
 
       clearTimeout(timeoutId);
 
-      // Wait 50ms after the user stops scrolling (faster response time)
+      // Wait 250ms after the user stops scrolling before snapping
       timeoutId = setTimeout(() => {
         setIsScrolling(false);
         const targetProgress = nearestIndex / (total - 1);
@@ -107,13 +107,13 @@ export default function HorizontalTimeline() {
 
             if ((window as any).lenis) {
               // Use Lenis for a very slow, elegant, and cinematic pull (1.5s duration)
-              (window as any).lenis.scrollTo(targetY, { duration: 1.5 });
+              (window as any).lenis.scrollTo(targetY, { duration: 1.2 });
             } else {
               window.scrollTo({ top: targetY, behavior: "smooth" });
             }
           }
         }
-      }, 50);
+      }, 250);
     });
 
     return () => {
@@ -134,25 +134,10 @@ export default function HorizontalTimeline() {
     >
       {/* Sticky container that stays on screen while scrolling */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
-        {/* Ambient Video Backgrounds (Preloaded) */}
         <div className="absolute inset-0 w-full h-full z-0 pointer-events-none mix-blend-luminosity dark:mix-blend-screen bg-theme-bg">
           {chapters.map((chapter, index) => {
-            // Only show the video if it's the active chapter AND the user has stopped scrolling.
-            const isActive = index === activeIndex && !isScrolling;
-
-            return (
-              <video
-                key={chapter.id}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-                  isActive ? "opacity-30" : "opacity-0"
-                }`}
-                src={chapter.video}
-              />
-            );
+            const isActive = index === activeIndex;
+            return <ChapterVideo key={chapter.id} src={chapter.video} isActive={isActive} />;
           })}
         </div>
 
@@ -214,3 +199,40 @@ export default function HorizontalTimeline() {
     </section>
   );
 }
+
+const ChapterVideo = ({ src, isActive }: { src: string; isActive: boolean }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    
+    if (isActive) {
+      // Play when active
+      videoRef.current.play().catch(e => console.log("Video autoplay prevented:", e));
+    } else {
+      // Pause when inactive to save resources and prevent browser bugs
+      // Wait for the fade-out transition to finish before pausing
+      const timeoutId = setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.pause();
+        }
+      }, 1000); // 1000ms matches the duration-1000 class
+      
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isActive]);
+
+  return (
+    <video
+      ref={videoRef}
+      loop
+      muted
+      playsInline
+      preload={isActive ? "auto" : "none"}
+      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+        isActive ? "opacity-30" : "opacity-0"
+      }`}
+      src={src}
+    />
+  );
+};
