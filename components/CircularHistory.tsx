@@ -17,7 +17,7 @@ const chapters = [
     description:
       "Enam bulan bareng yang nggak selalu mulus. Di momen ini semua uneg-uneg dan kekesalan ditumpahin, tapi ujung-ujungnya tetep saling memaafkan dan ketawa bareng lagi.",
     image: "/Story/Siapa/Main.jpg",
-    video: "/Story/Siapa/Video.mp4",
+    video: "/Story/Siapa/Video.webm",
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const chapters = [
     description:
       "Momen syuting video klip dance yang super keren! Di sini kami memperkenalkan setiap member Batch Legawa dengan gaya yang enerjik dan penuh semangat.",
     image: "/Story/Reveal/Main.jpeg",
-    video: "/Story/Reveal/Video.mp4",
+    video: "/Story/Reveal/Video.webm",
   },
   {
     id: 3,
@@ -159,7 +159,7 @@ export default function CircularHistory() {
   const navRotationOffset = useSpring(0, { stiffness: 60, damping: 20 });
   const targetRotationRef = useRef(0);
 
-  const [targetX, setTargetX] = useState(5.0 * RADIUS_PX);
+  const [targetX, setTargetX] = useState(3.2 * RADIUS_PX);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -168,7 +168,8 @@ export default function CircularHistory() {
       setIsMobile(mobile);
       if (mobile) {
         // Mobile: Tetap di tengah (Center)
-        setTargetX(5.0 * RADIUS_PX);
+        // Karena mobileScale maksimal adalah 3.2, kita harus geser sebesar 3.2 * RADIUS_PX
+        setTargetX(3.2 * RADIUS_PX);
       } else {
         // Desktop: Geser gambar ke kiri sebesar 22% lebar layar agar seimbang dengan teks di kanan
         const offsetLeft = -0.22 * window.innerWidth;

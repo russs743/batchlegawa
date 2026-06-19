@@ -78,11 +78,11 @@ export default function VideoSection() {
         >
           <video
             ref={videoRef}
-            src="RevealLegawa.mp4"
+            src="RevealLegawa.webm"
             className="w-full h-full object-cover"
-            controls
-            muted
+            autoPlay
             loop
+            muted
             playsInline
             preload="metadata"
           />

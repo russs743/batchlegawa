@@ -17,6 +17,11 @@ const targets = [
   ...allMembers.map((member) => member.name),
 ];
 
+const filterTargets = [
+  "Semua Data",
+  ...targets,
+];
+
 export default function StickyBoardClient({ initialComments }: { initialComments: any[] }) {
   const boardRef = useRef<HTMLDivElement>(null);
   const newNoteRef = useRef<HTMLDivElement>(null);
@@ -26,6 +31,14 @@ export default function StickyBoardClient({ initialComments }: { initialComments
   const [displayedComments, setDisplayedComments] = useState(initialComments);
   const [hasMore, setHasMore] = useState(initialComments.length >= 30);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  // Filter and View State
+  const [filterTarget, setFilterTarget] = useState("Semua Data");
+  const [viewMode, setViewMode] = useState<"board" | "list">("board");
+
+  const filteredComments = displayedComments.filter(
+    (c) => filterTarget === "Semua Data" || c.target === filterTarget
+  );
 
   // New Note State
   const [newNoteColor, setNewNoteColor] = useState(colors[0]);
@@ -121,17 +134,50 @@ export default function StickyBoardClient({ initialComments }: { initialComments
           </h2>
         </div>
 
-        {!isAdding && (
-          <button
-            onClick={handleAddClick}
-            className="group flex items-center gap-2 px-6 py-3 bg-theme-text text-theme-bg font-serif font-bold text-base md:text-lg rounded-full shadow-lg hover:scale-105 transition-all duration-300 whitespace-nowrap"
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto items-center">
+          {/* View Toggles */}
+          <div className="flex bg-theme-text/10 rounded-full p-1 items-center">
+            <button
+              onClick={() => setViewMode("board")}
+              className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${
+                viewMode === "board" ? "bg-theme-text text-theme-bg shadow-md" : "text-theme-text/70 hover:text-theme-text"
+              }`}
+            >
+              Board
+            </button>
+            <button
+              onClick={() => setViewMode("list")}
+              className={`px-4 py-2 rounded-full text-sm font-bold transition-all ${
+                viewMode === "list" ? "bg-theme-text text-theme-bg shadow-md" : "text-theme-text/70 hover:text-theme-text"
+              }`}
+            >
+              List
+            </button>
+          </div>
+
+          {/* Filter Dropdown */}
+          <select
+            value={filterTarget}
+            onChange={(e) => setFilterTarget(e.target.value)}
+            className="bg-transparent border-2 border-theme-text/20 rounded-full px-4 py-2.5 text-sm font-bold text-theme-text outline-none focus:border-theme-text transition-colors cursor-pointer w-full sm:w-auto"
           >
-            <span>+ Tulis Sticky Note</span>
-          </button>
-        )}
+            {filterTargets.map(t => (
+              <option key={t} value={t} className="text-black">{t}</option>
+            ))}
+          </select>
+
+          {!isAdding && viewMode === "board" && (
+            <button
+              onClick={handleAddClick}
+              className="group flex items-center justify-center gap-2 px-6 py-2.5 bg-theme-text text-theme-bg font-serif font-bold text-sm md:text-base rounded-full shadow-lg hover:scale-105 transition-all duration-300 whitespace-nowrap w-full sm:w-auto"
+            >
+              <span>+ Tulis Note</span>
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Board Canvas */}
+      {viewMode === "board" ? (
       <div 
         ref={boardRef}
         className="relative w-full h-[800px] md:h-[900px] bg-[#2a2a2a] rounded-3xl overflow-hidden border-8 border-[#4a3b32] shadow-inner flex items-center justify-center cursor-crosshair"
@@ -141,7 +187,7 @@ export default function StickyBoardClient({ initialComments }: { initialComments
         }}
       >
         {/* Render existing comments */}
-        {displayedComments.map((comment) => (
+        {filteredComments.map((comment) => (
           <motion.div
             key={comment.id}
             drag
@@ -267,6 +313,54 @@ export default function StickyBoardClient({ initialComments }: { initialComments
           </motion.div>
         )}
       </div>
+      ) : (
+        <div className="w-full flex flex-col gap-6 relative animate-fade-in">
+          {filteredComments.length === 0 ? (
+            <div className="w-full py-20 text-center flex flex-col items-center justify-center opacity-70">
+              <span className="text-4xl mb-4">📭</span>
+              <p className="font-serif text-xl font-bold text-theme-text">Belum ada pesan untuk kategori ini.</p>
+            </div>
+          ) : (
+            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
+              {filteredComments.map((comment) => (
+                <motion.div
+                  key={comment.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`w-full p-4 shadow-lg flex flex-col gap-2 ${comment.color || colors[0]} rounded-md transform transition-transform hover:scale-[1.02] inline-block break-inside-avoid`}
+                  style={{
+                    rotate: (comment.id * 3) % 4 - 2 + "deg"
+                  }}
+                >
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-red-500 rounded-full shadow-sm border border-red-700"></div>
+                  <div className="flex justify-between items-start border-b border-black/10 pb-2 mb-1 mt-2">
+                    <span className="font-bold text-sm truncate pr-2">{comment.name}</span>
+                    <span className="text-[10px] bg-black/10 px-2 py-0.5 rounded-full whitespace-nowrap">
+                      Untuk: {comment.target}
+                    </span>
+                  </div>
+                  <p className="font-sans text-sm leading-relaxed break-words whitespace-pre-wrap">
+                    {comment.message}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {/* Load More Button for List */}
+          {hasMore && (
+            <div className="w-full flex justify-center py-8">
+              <button
+                onClick={handleLoadMore}
+                disabled={isLoadingMore}
+                className="px-6 py-2 bg-theme-text hover:bg-theme-text/80 text-theme-bg rounded-full font-serif font-bold text-sm md:text-base shadow-xl transition-all duration-300 disabled:opacity-50"
+              >
+                {isLoadingMore ? "Loading..." : "Muat Lebih Banyak"}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
 
     </div>
   );

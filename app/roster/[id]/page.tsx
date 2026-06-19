@@ -40,7 +40,7 @@ export default function InternDetailPage() {
       {/* Background Silhouette from choseImage */}
       {member.choseImage && (
         <div className="fixed inset-0 pointer-events-none z-0 opacity-15 grayscale contrast-125 blur-[2px] flex items-center justify-center mask-image-b">
-          {member.choseImage.endsWith(".mp4") ? (
+          {member.choseImage.endsWith(".mp4") || member.choseImage.endsWith(".webm") ? (
             <video
               src={member.choseImage}
               autoPlay

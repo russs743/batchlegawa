@@ -11,7 +11,7 @@ const chapters = [
     description:
       "Where our paths first crossed and the foundation of our journey was laid.",
     image: "/kelas(2).jpg",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/0610.mp4",
+    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/0610.webm",
     align: "top",
   },
   {
@@ -20,7 +20,7 @@ const chapters = [
     description:
       "Learning to synchronize our steps and harmonize our diverse perspectives.",
     image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260119-WA0105.jpg",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/0610(1).mp4",
+    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/0610(1).webm",
     align: "bottom",
   },
   {
@@ -29,7 +29,7 @@ const chapters = [
     description:
       "Pushing past our comfort zones to explore what lies beyond the horizon.",
     image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260308-WA0027.jpg",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/0610(2).mp4",
+    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/0610(2).webm",
     align: "top",
   },
   {
@@ -39,7 +39,7 @@ const chapters = [
       "Celebrating the small victories that forged our indestructible bond.",
     image:
       "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260318-WA00612.jpg?updatedAt=1781149817571",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.mp4",
+    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.webm",
     align: "bottom",
   },
   {
@@ -48,7 +48,7 @@ const chapters = [
     description:
       "A moment of reflection, recognizing the depth of our connection.",
     image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260506-WA00292.jpg",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.mp4",
+    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.webm",
     align: "top",
   },
   {
@@ -58,7 +58,7 @@ const chapters = [
       "Thirteen unique paths converging into a single, unstoppable force.",
     image:
       "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=800&auto=format&fit=crop",
-    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.mp4",
+    video: "https://ik.imagekit.io/bhiaoqt1n/legawa/BUMPER%20TOWNHALL%20.webm",
     align: "bottom",
   },
 ];

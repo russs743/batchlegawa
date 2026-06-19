@@ -52,7 +52,7 @@ export default function GlobalPreloader() {
     };
 
     urlsToPreload.forEach((url) => {
-      if (url.endsWith(".mp4")) {
+      if (url.endsWith(".mp4") || url.endsWith(".webm")) {
         const req = new XMLHttpRequest();
         req.open("GET", url, true);
         req.responseType = "blob"; // Download the video to cache it

@@ -36,9 +36,6 @@ export default function KesanPesanForm() {
       const result = await addComment(formData);
       if (result.success) {
         setIsSuccess(true);
-        setTimeout(() => {
-          router.push("/#comments");
-        }, 1500);
       }
     });
   };
@@ -50,8 +47,21 @@ export default function KesanPesanForm() {
           ✨
         </div>
         <h3 className="font-serif text-3xl font-bold mb-2">Pesan Terkirim!</h3>
-        <p className="font-sans opacity-80 mb-6">Membawamu melihat papan mading...</p>
-        <div className="w-6 h-6 border-2 border-theme-bg border-t-transparent rounded-full animate-spin"></div>
+        <p className="font-sans opacity-80 mb-8">Terima kasih telah berbagi cerita dan kesanmu.</p>
+        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm">
+          <button 
+            onClick={() => setIsSuccess(false)}
+            className="flex-1 py-3 px-4 bg-transparent border-2 border-theme-bg text-theme-bg rounded-xl font-bold uppercase tracking-wider transition-all hover:bg-theme-bg/10 active:scale-95 text-sm"
+          >
+            Tulis Lagi
+          </button>
+          <button 
+            onClick={() => router.push("/")}
+            className="flex-1 py-3 px-4 bg-theme-bg text-theme-text rounded-xl font-bold uppercase tracking-wider transition-all shadow-lg hover:shadow-xl active:scale-95 text-sm"
+          >
+            Balik ke Web
+          </button>
+        </div>
       </div>
     );
   }

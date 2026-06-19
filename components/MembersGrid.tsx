@@ -138,7 +138,7 @@ const row2 = [
     zodiac: "Sagittarius",
     name: "Nauli",
     image: "/interns/nauli.jpg",
-    choseImage: "/Chose/Nauli.mp4",
+    choseImage: "/Chose/Nauli.webm",
     logoImage: "/memberlogo/NAULI.png",
     nameImage: "/AssetNama/Nauli.png",
     placeholder: "/female_intern.png",
