@@ -84,6 +84,7 @@ export default function VideoSection() {
             loop
             muted
             playsInline
+            controls
             preload="metadata"
           />
         </motion.div>
