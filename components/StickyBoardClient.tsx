@@ -35,10 +35,29 @@ export default function StickyBoardClient({ initialComments }: { initialComments
   // Filter and View State
   const [filterTarget, setFilterTarget] = useState("Semua Data");
   const [viewMode, setViewMode] = useState<"board" | "list">("board");
+  const [masonryCols, setMasonryCols] = useState(4);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) setMasonryCols(1);
+      else if (width < 768) setMasonryCols(2);
+      else if (width < 1024) setMasonryCols(3);
+      else setMasonryCols(4);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const filteredComments = displayedComments.filter(
     (c) => filterTarget === "Semua Data" || c.target === filterTarget
   );
+
+  const masonryColumns = Array.from({ length: masonryCols }, () => [] as any[]);
+  filteredComments.forEach((comment, index) => {
+    masonryColumns[index % masonryCols].push(comment);
+  });
 
   // New Note State
   const [newNoteColor, setNewNoteColor] = useState(colors[0]);
@@ -321,28 +340,32 @@ export default function StickyBoardClient({ initialComments }: { initialComments
               <p className="font-serif text-xl font-bold text-theme-text">Belum ada pesan untuk kategori ini.</p>
             </div>
           ) : (
-            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6">
-              {filteredComments.map((comment) => (
-                <motion.div
-                  key={comment.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`w-full p-4 shadow-lg flex flex-col gap-2 ${comment.color || colors[0]} rounded-md transform transition-transform hover:scale-[1.02] inline-block break-inside-avoid`}
-                  style={{
-                    rotate: (comment.id * 3) % 4 - 2 + "deg"
-                  }}
-                >
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-red-500 rounded-full shadow-sm border border-red-700"></div>
-                  <div className="flex justify-between items-start border-b border-black/10 pb-2 mb-1 mt-2">
-                    <span className="font-bold text-sm truncate pr-2">{comment.name}</span>
-                    <span className="text-[10px] bg-black/10 px-2 py-0.5 rounded-full whitespace-nowrap">
-                      Untuk: {comment.target}
-                    </span>
-                  </div>
-                  <p className="font-sans text-sm leading-relaxed break-words whitespace-pre-wrap">
-                    {comment.message}
-                  </p>
-                </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-start">
+              {masonryColumns.map((col, colIndex) => (
+                <div key={colIndex} className="flex flex-col gap-6">
+                  {col.map((comment) => (
+                    <motion.div
+                      key={comment.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`w-full p-4 shadow-lg flex flex-col gap-2 ${comment.color || colors[0]} rounded-md transform transition-transform hover:scale-[1.02]`}
+                      style={{
+                        rotate: (comment.id * 3) % 4 - 2 + "deg"
+                      }}
+                    >
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-red-500 rounded-full shadow-sm border border-red-700"></div>
+                      <div className="flex justify-between items-start border-b border-black/10 pb-2 mb-1 mt-2">
+                        <span className="font-bold text-sm truncate pr-2">{comment.name}</span>
+                        <span className="text-[10px] bg-black/10 px-2 py-0.5 rounded-full whitespace-nowrap">
+                          Untuk: {comment.target}
+                        </span>
+                      </div>
+                      <p className="font-sans text-sm leading-relaxed break-words whitespace-pre-wrap">
+                        {comment.message}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
               ))}
             </div>
           )}

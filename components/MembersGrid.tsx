@@ -23,7 +23,7 @@ const row1 = [
     nameImage: "/AssetNama/Faiz.png",
     placeholder: "/male_intern.png",
     role: "Graphic Designer",
-    stats: { design: 95, creativity: 90, software: 85, focus: 75 },
+    stats: { design: 85, creativity: 70, "Beli Nanas": 100, focus: 75 },
   },
   {
     id: "el",
@@ -37,7 +37,7 @@ const row1 = [
     nameImage: "/AssetNama/Elrummi.png",
     placeholder: "/male_intern.png",
     role: "Video Editor",
-    stats: { editing: 95, storytelling: 85, software: 90, patience: 80 },
+    stats: { editing: 95, storytelling: 85, tidur: 100, sabar: 90 },
   },
   {
     id: "rafi",
@@ -51,7 +51,7 @@ const row1 = [
     nameImage: "/AssetNama/Rafi.png",
     placeholder: "/male_intern.png",
     role: "KOL Specialist",
-    stats: { communication: 95, networking: 90, empathy: 85, negotiation: 80 },
+    stats: { communication: 95, ngeluh: 90, empathy: 0, negotiation: 80 },
   },
   {
     id: "ubay",
@@ -65,7 +65,7 @@ const row1 = [
     nameImage: "/AssetNama/Ubay.png",
     placeholder: "/male_intern.png",
     role: "Content Creator TikTok",
-    stats: { trendiness: 95, creativity: 90, charisma: 85, engagement: 80 },
+    stats: { diendorse: 1000, creativity: 90, "bobo ciang": 95, engagement: 80 },
   },
   {
     id: "ilham",
@@ -79,7 +79,7 @@ const row1 = [
     nameImage: "/AssetNama/Ilham.png",
     placeholder: "/male_intern.png",
     role: "Video Editor",
-    stats: { editing: 95, storytelling: 85, software: 90, patience: 80 },
+    stats: { editing: 95, storytelling: 85, "Ngobrol ama ilham": 100, "orang tasik": 0 },
   },
   {
     id: "hezky",
@@ -95,8 +95,8 @@ const row1 = [
     role: "Content Creator Instagram",
     stats: {
       aesthetics: 95,
-      photography: 90,
-      copywriting: 85,
+      "model paris": 10000,
+      "jaga rahasia": 1,
       consistency: 80,
     },
   },
@@ -112,7 +112,7 @@ const row1 = [
     nameImage: "/AssetNama/Rusydi.png",
     placeholder: "/male_intern.png",
     role: "IT",
-    stats: { logic: 95, problem_solving: 90, coding: 85, coffee: 99 },
+    stats: { knowledge: 1000000, "benerin cctv": 90, coding: 85, coffee: 99 },
   },
 ];
 
@@ -129,7 +129,7 @@ const row2 = [
     nameImage: "/AssetNama/Luna.png",
     placeholder: "/female_intern.png",
     role: "Community",
-    stats: { communication: 95, networking: 90, empathy: 85, negotiation: 80 },
+    stats: { communication: 95, networking: 90, empathy: 0, "": 80 },
   },
   {
     id: "nauli",
