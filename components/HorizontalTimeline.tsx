@@ -56,8 +56,7 @@ const chapters = [
     title: "Chapter VI: Moving Forward",
     description:
       "Thirteen unique paths converging into a single, unstoppable force.",
-    image:
-      "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=800&auto=format&fit=crop",
+    image: "/Chapter/Chapter6.JPG",
     video: "/Chapter/Chapter3.webm",
     align: "bottom",
   },
