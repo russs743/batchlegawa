@@ -32,6 +32,7 @@ export const metadata: Metadata = {
 };
 
 import GlobalPreloader from "@/components/GlobalPreloader";
+import Navbar from "@/components/Navbar";
 
 export default function RootLayout({
   children,
@@ -45,6 +46,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <GlobalPreloader />
+        <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
         <ThemeToggle />
       </body>

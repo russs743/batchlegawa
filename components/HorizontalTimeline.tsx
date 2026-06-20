@@ -80,6 +80,7 @@ export default function HorizontalTimeline() {
     const unsubscribe = scrollYProgress.on("change", (latest) => {
       // Set scrolling to true immediately
       setIsScrolling(true);
+      clearTimeout(timeoutId);
 
       // Don't snap if we're outside the timeline boundaries or at the very edges
       if (latest <= 0.01 || latest >= 0.99) return;
@@ -87,8 +88,6 @@ export default function HorizontalTimeline() {
       const total = chapters.length;
       const nearestIndex = Math.round(latest * (total - 1));
       setActiveIndex(nearestIndex);
-
-      clearTimeout(timeoutId);
 
       // Wait 250ms after the user stops scrolling before snapping
       timeoutId = setTimeout(() => {

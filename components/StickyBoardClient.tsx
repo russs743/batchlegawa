@@ -50,6 +50,16 @@ export default function StickyBoardClient({ initialComments }: { initialComments
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Force Lenis to recalculate page height when view mode or content changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (typeof window !== "undefined" && (window as any).lenis) {
+        (window as any).lenis.resize();
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [viewMode, displayedComments, filterTarget]);
+
   const filteredComments = displayedComments.filter(
     (c) => filterTarget === "Semua Data" || c.target === filterTarget
   );
