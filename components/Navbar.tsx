@@ -23,10 +23,6 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // If we are on the roster page, don't show the navbar
-  if (pathname && pathname.startsWith("/roster")) {
-    return null;
-  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,15 +75,20 @@ export default function Navbar() {
     }
   };
 
+  // If we are on the roster page, don't show the navbar
+  if (pathname && pathname.startsWith("/roster")) {
+    return null;
+  }
+
   return (
     <>
       <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "py-4 bg-theme-bg/80 backdrop-blur-md border-b border-theme-border shadow-sm"
+            ? "py-4 bg-theme-bg/80 backdrop-blur-md border-b border-theme-border shadow-sm opacity-30 hover:opacity-100 focus-within:opacity-100"
             : "py-6 bg-transparent"
         }`}
       >
@@ -143,7 +144,7 @@ export default function Navbar() {
             />
             <span
               className={`w-6 h-px bg-theme-text transition-transform duration-300 ${
-                isMobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                isMobileMenuOpen ? "translate-y-[-7px] -rotate-45" : ""
               }`}
             />
           </button>

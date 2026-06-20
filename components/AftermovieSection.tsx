@@ -98,7 +98,7 @@ export default function AftermovieSection() {
               onEnded={() => setIsPlaying(false)}
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black flex items-center justify-center">
+            <div className="w-full h-full bg-linear-to-br from-gray-900 to-black flex items-center justify-center">
               {/* Optional: Add a poster image here if they have one */}
             </div>
           )}

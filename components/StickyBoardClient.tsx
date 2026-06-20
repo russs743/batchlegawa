@@ -370,7 +370,7 @@ export default function StickyBoardClient({ initialComments }: { initialComments
                           Untuk: {comment.target}
                         </span>
                       </div>
-                      <p className="font-sans text-sm leading-relaxed break-words whitespace-pre-wrap">
+                      <p className="font-sans text-sm leading-relaxed wrap-break-word whitespace-pre-wrap">
                         {comment.message}
                       </p>
                     </motion.div>
