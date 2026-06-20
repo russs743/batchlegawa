@@ -48,7 +48,7 @@ const chapters = [
     description:
       "A moment of reflection, recognizing the depth of our connection.",
     image: "https://ik.imagekit.io/bhiaoqt1n/legawa/IMG-20260506-WA00292.jpg",
-    video: "/Chapter/Chapter3.webm",
+    video: "/Chapter/Chapter5.webm",
     align: "top",
   },
   {
@@ -57,7 +57,7 @@ const chapters = [
     description:
       "Thirteen unique paths converging into a single, unstoppable force.",
     image: "/Chapter/Chapter6.JPG",
-    video: "/Chapter/Chapter3.webm",
+    video: "/Chapter/Chapter6.webm",
     align: "bottom",
   },
 ];
