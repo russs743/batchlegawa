@@ -24,6 +24,8 @@ const row1 = [
     placeholder: "/male_intern.png",
     role: "Graphic Designer",
     stats: { design: 85, creativity: 70, "Beli Nanas": 100, focus: 75 },
+    cvLink: "https://drive.google.com/file/d/1dovN1bHtOxJSQXJC6AsKLnsiHEWPa-_1/view?usp=drive_link",
+    portfolioLink: "",
   },
   {
     id: "el",
@@ -38,6 +40,8 @@ const row1 = [
     placeholder: "/male_intern.png",
     role: "Video Editor",
     stats: { editing: 95, storytelling: 85, tidur: 100, sabar: 90 },
+    cvLink: "https://drive.google.com/file/d/10TnWeXeZtKUemD2G8XnyhoU74pg9mK4I/view?usp=drive_link",
+    portfolioLink: "https://drive.google.com/file/d/1S2hwY1V-jj7kTTmNySvPwAIiNxGwkXfg/view?usp=drive_link",
   },
   {
     id: "rafi",
@@ -52,6 +56,8 @@ const row1 = [
     placeholder: "/male_intern.png",
     role: "KOL Specialist",
     stats: { communication: 95, ngeluh: 90, empathy: 0, negotiation: 80 },
+    cvLink: "https://drive.google.com/file/d/1CEIywtlAWFgZeX2oH8P2cT3vVJHn3rU4/view?usp=drive_link",
+    portfolioLink: "",
   },
   {
     id: "ubay",
@@ -66,6 +72,8 @@ const row1 = [
     placeholder: "/male_intern.png",
     role: "Content Creator TikTok",
     stats: { diendorse: 1000, creativity: 90, "bobo ciang": 95, engagement: 80 },
+    cvLink: "https://drive.google.com/file/d/1CnySuPccBNSfi7k59s7pXdSOtqDd3oUq/view?usp=drive_link",
+    portfolioLink: "",
   },
   {
     id: "ilham",
@@ -80,6 +88,8 @@ const row1 = [
     placeholder: "/male_intern.png",
     role: "Video Editor",
     stats: { editing: 95, storytelling: 85, "Ngobrol ama ilham": 100, "orang tasik": 0 },
+    cvLink: "https://drive.google.com/file/d/1Q1PRkx_NEj03tQRVmEER4ITXBCpdqIve/view?usp=drive_link",
+    portfolioLink: "https://drive.google.com/file/d/1mPUsI6GJVb62zJrnNfiTa64un-8nyJ-G/view?usp=drive_link",
   },
   {
     id: "hezky",
@@ -99,6 +109,8 @@ const row1 = [
       "jaga rahasia": 1,
       consistency: 80,
     },
+    cvLink: "https://drive.google.com/file/d/1Py-Q48z9b-m8MecvaMrjMt8uCvETBbm5/view?usp=drive_link",
+    portfolioLink: "https://drive.google.com/file/d/1QbQkDGOUxnZH2O1RRmqj-O9Y_yLfn0yw/view?usp=drive_link",
   },
   {
     id: "rusydi",
@@ -113,6 +125,8 @@ const row1 = [
     placeholder: "/male_intern.png",
     role: "IT",
     stats: { knowledge: 1000000, "benerin cctv": 90, coding: 85, coffee: 99 },
+    cvLink: "https://drive.google.com/file/d/14WRuxhFAe3xFsucLpDCE83DIaFMeiqGW/view?usp=drive_link",
+    portfolioLink: "portofolio-rusydi-balfas.vercel.app",
   },
 ];
 
@@ -130,6 +144,8 @@ const row2 = [
     placeholder: "/female_intern.png",
     role: "Community",
     stats: { communication: 95, networking: 90, empathy: 0, "": 80 },
+    cvLink: "https://drive.google.com/file/d/16D9DCiQ2oxdGhaZ4AS_mg6rqqUVlR-7P/view?usp=drive_link",
+    portfolioLink: "",
   },
   {
     id: "nauli",
@@ -144,6 +160,8 @@ const row2 = [
     placeholder: "/female_intern.png",
     role: "Graphic Designer",
     stats: { design: 95, creativity: 90, software: 85, focus: 75 },
+    cvLink: "",
+    portfolioLink: "",
   },
   {
     id: "nia",
@@ -158,6 +176,8 @@ const row2 = [
     placeholder: "/female_intern.png",
     role: "Content Creator TikTok",
     stats: { trendiness: 95, creativity: 90, charisma: 85, engagement: 80 },
+    cvLink: "https://drive.google.com/file/d/1VYR0XB0TcHHxKkYGyO4uhf_KlcT1bBx3/view?usp=drive_link",
+    portfolioLink: "",
   },
   {
     id: "vania",
@@ -172,6 +192,8 @@ const row2 = [
     placeholder: "/female_intern.png",
     role: "Copywriter",
     stats: { writing: 95, vocabulary: 90, persuasion: 85, creativity: 85 },
+    cvLink: "https://drive.google.com/file/d/1pWp7iSmzR3euJ8nhBdw35ESrRFZ8pKey/view?usp=drive_link",
+    portfolioLink: "",
   },
   {
     id: "michelle",
@@ -191,6 +213,8 @@ const row2 = [
       copywriting: 85,
       consistency: 80,
     },
+    cvLink: "https://drive.google.com/file/d/1dYDbiwVlZnPP9eBUwBhwRt57m7XR7ugw/view?usp=drive_link",
+    portfolioLink: "",
   },
   {
     id: "fia",
@@ -205,6 +229,8 @@ const row2 = [
     placeholder: "/female_intern.png",
     role: "Production",
     stats: { creativity: 85, logic: 80, energy: 90, communication: 85 },
+    cvLink: "https://drive.google.com/file/d/1rj11P-ib1tTJovWmp7PU6_AGSyofs_lL/view?usp=drive_link",
+    portfolioLink: "",
   },
 ];
 

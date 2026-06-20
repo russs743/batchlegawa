@@ -144,24 +144,49 @@ export default function InternDetailPage() {
 
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-4 mt-2 w-max">
-              <Link
-                href="#"
-                className="px-6 py-3 border border-theme-accent text-theme-accent hover:bg-theme-accent hover:text-theme-bg transition-colors duration-300 rounded-full font-sans text-[0.65rem] tracking-[0.2em] uppercase flex items-center gap-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Resume / CV
-              </Link>
-              <Link
-                href="#"
-                className="px-6 py-3 bg-theme-text/5 border border-theme-border/30 text-theme-text hover:bg-theme-text hover:text-theme-bg transition-colors duration-300 rounded-full font-sans text-[0.65rem] tracking-[0.2em] uppercase flex items-center gap-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                Portfolio
-              </Link>
+              {(member as any).cvLink ? (
+                <Link
+                  href={(member as any).cvLink}
+                  target="_blank"
+                  className="px-6 py-3 border border-theme-accent text-theme-accent hover:bg-theme-accent hover:text-theme-bg transition-colors duration-300 rounded-full font-sans text-[0.65rem] tracking-[0.2em] uppercase flex items-center gap-2"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  Resume / CV
+                </Link>
+              ) : (
+                <span
+                  className="px-6 py-3 border border-theme-border/20 text-theme-text/30 cursor-not-allowed rounded-full font-sans text-[0.65rem] tracking-[0.2em] uppercase flex items-center gap-2 bg-theme-text/5 backdrop-blur-sm"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  No CV Available
+                </span>
+              )}
+              
+              {(member as any).portfolioLink ? (
+                <Link
+                  href={(member as any).portfolioLink}
+                  target="_blank"
+                  className="px-6 py-3 bg-theme-text/5 border border-theme-border/30 text-theme-text hover:bg-theme-text hover:text-theme-bg transition-colors duration-300 rounded-full font-sans text-[0.65rem] tracking-[0.2em] uppercase flex items-center gap-2"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Portfolio
+                </Link>
+              ) : (
+                <span
+                  className="px-6 py-3 bg-transparent border border-theme-border/20 text-theme-text/30 cursor-not-allowed rounded-full font-sans text-[0.65rem] tracking-[0.2em] uppercase flex items-center gap-2 bg-theme-text/5 backdrop-blur-sm"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  No Portfolio
+                </span>
+              )}
             </div>
           </motion.div>
 

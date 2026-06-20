@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -16,9 +17,15 @@ const navItems = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // If we are on the roster page, don't show the navbar
+  if (pathname && pathname.startsWith("/roster")) {
+    return null;
+  }
 
   useEffect(() => {
     const handleScroll = () => {
