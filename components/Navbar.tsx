@@ -13,6 +13,7 @@ const navItems = [
   { name: "IOTM", href: "#intern-of-the-month" },
   { name: "History", href: "#history" },
   { name: "Interns", href: "#interns" },
+  { name: "Aftermovie", href: "#aftermovie" },
   { name: "Messages", href: "#messages" },
 ];
 

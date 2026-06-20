@@ -9,6 +9,7 @@ import MomentsSection from "@/components/MomentsSection";
 import StickyBoard from "@/components/StickyBoard";
 import { getComments } from "@/app/actions";
 import PacmanTrigger from "@/components/PacmanTrigger";
+import AftermovieSection from "@/components/AftermovieSection";
 
 export default async function Home() {
   const comments = await getComments();
@@ -23,6 +24,7 @@ export default async function Home() {
       <div id="intern-of-the-month"><InternOfTheMonth /></div>
       <div id="history"><CircularHistory /></div>
       <div id="interns"><MembersGrid /></div>
+      <div id="aftermovie"><AftermovieSection /></div>
       <div id="messages"><StickyBoard /></div>
       <PacmanTrigger />
     </main>
