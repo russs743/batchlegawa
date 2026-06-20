@@ -134,25 +134,25 @@ export default function Hero({ comments = [] }: { comments?: any[] }) {
           />
         ))}
 
-      {/* ─── Top bar ─── */}
-      <header className="relative z-10 flex justify-between items-start px-6 py-5 sm:px-12 sm:py-8 opacity-0 animate-fade-in [animation-delay:300ms]">
-        <div className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-theme-muted leading-relaxed">
+      {/* ─── Bottom Info ───
+      <div className="absolute z-10 w-full bottom-6 sm:bottom-8 px-6 sm:px-12 flex justify-between items-end opacity-0 animate-fade-in [animation-delay:300ms] pointer-events-none">
+        <div className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-theme-muted leading-relaxed text-left pointer-events-auto">
           <strong className="block text-theme-accent tracking-[0.15em] transition-colors duration-300">
             Cretivox Internship Experience II
           </strong>
           Batch 4 · Legawa
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center pointer-events-auto">
           <img
             src="https://ik.imagekit.io/bhiaoqt1n/Cretivox%20Logo%20BLACK.png?updatedAt=1770106782519"
             alt="Cretivox"
-            className="h-15 w-auto sm:h-16 opacity-80 mix-blend-multiply transition-opacity hover:opacity-100"
+            className="h-10 w-auto sm:h-12 opacity-80 mix-blend-multiply transition-opacity hover:opacity-100 dark:invert dark:mix-blend-normal"
           />
         </div>
-      </header>
+      </div> */}
 
       {/* ─── Center content ─── */}
-      <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-8 text-center">
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-8 pt-24 md:pt-32 text-center">
         {/* Eyebrow */}
         <p className="font-sans text-[0.85rem] font-bold tracking-[0.3em] uppercase text-theme-muted dark:text-white/80 mb-8 opacity-0 animate-fade-up [animation-delay:500ms]">
           Cretivox Internship Experience II Batch 4
