@@ -33,6 +33,7 @@ export const metadata: Metadata = {
 
 import GlobalPreloader from "@/components/GlobalPreloader";
 import Navbar from "@/components/Navbar";
+import MusicPlayer from "@/components/MusicPlayer";
 
 export default function RootLayout({
   children,
@@ -49,6 +50,7 @@ export default function RootLayout({
         <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
         <ThemeToggle />
+        <MusicPlayer />
       </body>
     </html>
   );
