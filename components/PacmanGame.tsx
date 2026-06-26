@@ -282,7 +282,7 @@ export default function PacmanGame({ onClose }: { onClose?: () => void }) {
 
       <div className="w-full flex justify-center overflow-hidden h-[400px] sm:h-[500px] md:h-[600px] items-center">
         <div 
-          className="relative bg-black border-4 border-blue-900 rounded-lg shadow-[0_0_20px_rgba(30,58,138,0.5)] origin-center scale-[0.6] sm:scale-75 md:scale-100 transition-transform"
+          className="relative bg-black border-4 border-blue-900 rounded-lg shadow-[0_0_20px_rgba(30,58,138,0.5)] origin-center scale-[0.6] sm:scale-75 md:scale-100 transition-transform shrink-0"
           style={{ width: COLS * CELL_SIZE, height: ROWS * CELL_SIZE }}
         >
           {/* Render Map */}
