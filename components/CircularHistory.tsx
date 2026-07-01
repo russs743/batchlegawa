@@ -8,6 +8,7 @@ import {
   useTransform,
   useSpring,
   MotionValue,
+  useMotionValueEvent
 } from "framer-motion";
 
 const chapters = [
@@ -33,7 +34,7 @@ const chapters = [
     description:
       "Keseruan satu batch jalan-jalan bareng visit company ke Future Creative Network (FCN). Nambah wawasan keren sekaligus momen bonding yang nggak terlupakan!",
     image: "/Story/VisitFCN/Main.jpg",
-    video: "/Story/VisitFCN/Video.mp4",
+    video: "/Story/VisitFCN/Video.webm",
   },
   {
     id: 4,
@@ -41,7 +42,7 @@ const chapters = [
     description:
       "Hari pertama kumpul! Masih pada canggung dan malu-malu, tapi dari sinilah awal perjalanan panjang dan pertemanan seru kami dimulai.",
     image: "/Story/FistDay/Main.jpg",
-    video: "/Story/FistDay/Video.mp4",
+    video: "/Story/FistDay/Video.webm",
   },
   {
     id: 5,
@@ -49,7 +50,7 @@ const chapters = [
     description:
       "Quality time bareng di minggu kedua. Seharian penuh kita berenang, BBQ-an, sampai karaoke santai untuk ngelepas penat dan bikin ikatan batch ini makin solid.",
     image: "/Story/rumahLuna/Main.jpg",
-    video: "/Story/rumahLuna/Video.mp4",
+    video: "/Story/rumahLuna/Video.webm",
   },
   {
     id: 6,
@@ -158,6 +159,7 @@ export default function CircularHistory() {
 
   const navRotationOffset = useSpring(0, { stiffness: 60, damping: 20 });
   const targetRotationRef = useRef(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const [targetX, setTargetX] = useState(3.2 * RADIUS_PX);
   const [isMobile, setIsMobile] = useState(false);
@@ -224,24 +226,21 @@ export default function CircularHistory() {
   const centerTextOpacity = useTransform(smoothProgress, [0.4, 0.5], [1, 0]);
   const focusUiOpacity = useTransform(smoothProgress, [0.7, 0.75], [0, 1]);
 
-  useEffect(() => {
-    const unsubscribe = smoothProgress.on("change", (v) => {
-      // Masuk Fase Fokus (Zoomed)
-      if (v > 0.7 && !isPhase3) {
-        setIsPhase3(true);
-        setActiveItem(0);
-        targetRotationRef.current = 0;
-        navRotationOffset.set(0);
-      }
-      // Keluar Fase Fokus
-      else if (v <= 0.7 && isPhase3) {
-        setIsPhase3(false);
-        targetRotationRef.current = 0;
-        navRotationOffset.set(0);
-      }
-    });
-    return () => unsubscribe();
-  }, [smoothProgress, isPhase3, navRotationOffset]);
+  useMotionValueEvent(smoothProgress, "change", (v) => {
+    // Masuk Fase Fokus (Zoomed)
+    if (v > 0.7 && !isPhase3) {
+      setIsPhase3(true);
+      setActiveItem(0);
+      targetRotationRef.current = 0;
+      navRotationOffset.set(0);
+    }
+    // Keluar Fase Fokus
+    else if (v <= 0.7 && isPhase3) {
+      setIsPhase3(false);
+      targetRotationRef.current = 0;
+      navRotationOffset.set(0);
+    }
+  });
 
   const nextItem = () => {
     setActiveItem((prev) => (prev + 1) % total);
@@ -254,6 +253,19 @@ export default function CircularHistory() {
     targetRotationRef.current += 360 / total;
     navRotationOffset.set(targetRotationRef.current);
   };
+
+  useEffect(() => {
+    videoRefs.current.forEach((video, idx) => {
+      if (video) {
+        if (idx === activeItem && isPhase3) {
+          video.muted = true; // Ensure it is muted to bypass autoplay policies
+          video.play().catch((err) => console.log("Play interrupted:", err));
+        } else {
+          video.pause();
+        }
+      }
+    });
+  }, [activeItem, isPhase3]);
 
   return (
     <section
@@ -273,8 +285,11 @@ export default function CircularHistory() {
               chapter.video && (
                 <video
                   key={`bg-video-${chapter.id}`}
+                  ref={(el) => {
+                    videoRefs.current[index] = el;
+                  }}
                   src={chapter.video}
-                  autoPlay
+                  autoPlay={false}
                   muted
                   loop
                   playsInline
@@ -327,9 +342,8 @@ export default function CircularHistory() {
         <motion.div
           style={{
             opacity: focusUiOpacity,
-            pointerEvents: isPhase3 ? "auto" : "none",
           }}
-          className="absolute inset-0 z-40 flex flex-col md:flex-row items-center justify-end pb-12 md:pb-0 px-6 md:pr-24 lg:pr-40"
+          className={`absolute inset-0 z-50 flex flex-col md:flex-row items-center justify-end pb-12 md:pb-0 px-6 md:pr-24 lg:pr-40 ${isPhase3 ? "pointer-events-auto" : "pointer-events-none"}`}
         >
           {/* Kontainer Teks Kanan */}
           <div className="w-full md:w-[45%] lg:w-[40%] flex flex-col justify-end md:justify-center items-center md:items-start h-full pb-8 md:pb-0">
@@ -342,10 +356,10 @@ export default function CircularHistory() {
           </div>
 
           {/* Navigasi Desktop (Tengah Kanan, Susunan Atas-Bawah) */}
-          <div className="hidden md:flex flex-col gap-4 absolute top-1/2 -translate-y-1/2 right-12 lg:right-20">
+          <div className="hidden md:flex flex-col gap-4 absolute top-1/2 -translate-y-1/2 right-12 lg:right-20 z-[9999] pointer-events-auto">
             <button
               onClick={prevItem}
-              className="w-14 h-14 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+              className="relative z-[9999] pointer-events-auto w-14 h-14 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)] cursor-pointer"
               aria-label="Previous"
             >
               <svg
@@ -363,7 +377,7 @@ export default function CircularHistory() {
             </button>
             <button
               onClick={nextItem}
-              className="w-14 h-14 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+              className="relative z-[9999] pointer-events-auto w-14 h-14 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)] cursor-pointer"
               aria-label="Next"
             >
               <svg
@@ -385,7 +399,7 @@ export default function CircularHistory() {
           <div className="absolute md:hidden bottom-6 left-6">
             <button
               onClick={prevItem}
-              className="w-12 h-12 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+              className="w-12 h-12 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)] cursor-pointer"
             >
               ←
             </button>
@@ -393,7 +407,7 @@ export default function CircularHistory() {
           <div className="absolute md:hidden bottom-6 right-6">
             <button
               onClick={nextItem}
-              className="w-12 h-12 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+              className="w-12 h-12 rounded-full bg-theme-text dark:bg-white text-theme-bg dark:text-black flex items-center justify-center hover:scale-110 transition-transform shadow-[0_4px_20px_rgba(0,0,0,0.15)] cursor-pointer"
             >
               →
             </button>

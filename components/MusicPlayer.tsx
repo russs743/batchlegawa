@@ -146,12 +146,12 @@ export default function MusicPlayer() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end font-sans">
+    <div className="relative z-50 flex flex-col items-end font-sans">
       <audio ref={audioRef} src={currentTrack.src} />
 
       {/* Spotify Embed-like Popup Widget */}
       <div 
-        className={`mb-4 overflow-hidden rounded-xl shadow-2xl transition-all duration-300 origin-bottom-right flex flex-col w-[calc(100vw-3rem)] max-w-[420px] sm:w-[420px] ${
+        className={`absolute top-full right-0 mt-4 overflow-hidden rounded-xl shadow-2xl transition-all duration-300 origin-top-right flex flex-col w-[calc(100vw-3rem)] max-w-[420px] sm:w-[420px] ${
           isOpen ? "scale-100 opacity-100 pointer-events-auto" : "scale-95 opacity-0 pointer-events-none"
         }`}
         style={{ backgroundColor: "#3a4750", maxHeight: "calc(100vh - 120px)" }}
@@ -268,12 +268,12 @@ export default function MusicPlayer() {
       {/* Floating Action Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-white text-[#3a4750] rounded-full flex items-center justify-center shadow-[0_8px_24px_rgba(0,0,0,0.5)] hover:scale-105 transition-transform hover:bg-gray-100 group z-50 border border-gray-200"
+        className="w-10 h-10 bg-white text-[#3a4750] rounded-full flex items-center justify-center shadow-md hover:scale-105 transition-transform hover:bg-gray-100 group border border-gray-200"
       >
         {isPlaying ? (
-          <img src="https://open.spotifycdn.com/cdn/images/equaliser-animated-green.f93a2ef4.gif" alt="playing" className="w-5 h-5 filter invert" />
+          <img src="https://open.spotifycdn.com/cdn/images/equaliser-animated-green.f93a2ef4.gif" alt="playing" className="w-4 h-4 filter invert" />
         ) : (
-          <svg height="24" width="24" viewBox="0 0 24 24" fill="currentColor">
+          <svg height="20" width="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.6 14.4c-.17.27-.52.36-.78.19-2.14-1.3-4.83-1.6-8.02-.88-.3.07-.6-.12-.67-.42-.07-.3.12-.6.42-.67 3.51-.79 6.48-.44 8.86 1.01.27.16.35.5.19.77zm1.08-2.42c-.22.36-.68.47-1.04.25-2.45-1.5-6.2-1.94-9.33-1.06-.4.11-.81-.13-.92-.53-.11-.4.13-.81.53-.92 3.61-.99 7.91-.49 10.73 1.23.35.22.46.68.25 1.04zm.12-2.54c-2.95-1.75-7.82-1.92-10.63-1.06-.5.15-1.01-.13-1.16-.62-.15-.5.13-1.01.62-1.16 3.32-.93 8.67-.73 12.16 1.34.45.27.59.88.32 1.33-.27.46-.88.6-1.33.32z"></path>
           </svg>
         )}

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
-import ThemeToggle from "@/components/ThemeToggle";
 import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
@@ -33,7 +32,6 @@ export const metadata: Metadata = {
 
 import GlobalPreloader from "@/components/GlobalPreloader";
 import Navbar from "@/components/Navbar";
-import MusicPlayer from "@/components/MusicPlayer";
 
 export default function RootLayout({
   children,
@@ -49,8 +47,6 @@ export default function RootLayout({
         <GlobalPreloader />
         <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
-        <ThemeToggle />
-        <MusicPlayer />
       </body>
     </html>
   );

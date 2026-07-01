@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "@/components/ThemeToggle";
+import MusicPlayer from "@/components/MusicPlayer";
+import PacmanTrigger from "@/components/PacmanTrigger";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -127,27 +130,34 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="lg:hidden flex flex-col items-center justify-center w-8 h-8 gap-1.5 z-50"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <span
-              className={`w-6 h-px bg-theme-text transition-transform duration-300 ${
-                isMobileMenuOpen ? "translate-y-[7px] rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`w-6 h-px bg-theme-text transition-opacity duration-300 ${
-                isMobileMenuOpen ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`w-6 h-px bg-theme-text transition-transform duration-300 ${
-                isMobileMenuOpen ? "translate-y-[-7px] -rotate-45" : ""
-              }`}
-            />
-          </button>
+          {/* Actions & Mobile Menu */}
+          <div className="flex items-center gap-3">
+            <PacmanTrigger />
+            <ThemeToggle />
+            <MusicPlayer />
+            
+            {/* Mobile Menu Toggle */}
+            <button
+              className="lg:hidden flex flex-col items-center justify-center w-8 h-8 gap-1.5 z-50 ml-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <span
+                className={`w-6 h-px bg-theme-text transition-transform duration-300 ${
+                  isMobileMenuOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`w-6 h-px bg-theme-text transition-opacity duration-300 ${
+                  isMobileMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`w-6 h-px bg-theme-text transition-transform duration-300 ${
+                  isMobileMenuOpen ? "translate-y-[-7px] -rotate-45" : ""
+                }`}
+              />
+            </button>
+          </div>
         </div>
       </motion.header>
 
