@@ -58,7 +58,7 @@ const chapters = [
     description:
       "Di balik layar keseruan photoshoot buat poster resmi batch kita. Gaya udah paling maksimal buat unjuk gigi formasi lengkap dan pesona anak-anak Legawa!",
     image: "/Story/PhotoshootPoster/Main.jpg",
-    video: "/Story/PhotoshootPoster/Video.mp4",
+    video: "/Story/PhotoshootPoster/Video.webm",
   },
 ];
 
