@@ -91,7 +91,7 @@ export default function AftermovieSection() {
           {isPlaying ? (
             <video
               ref={videoRef}
-              src="/aftermovie.mp4"
+              src="/aftermovie.webm"
               controls
               controlsList="nodownload"
               className="w-full h-full object-contain bg-black"

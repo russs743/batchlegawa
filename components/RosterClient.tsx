@@ -128,7 +128,7 @@ export default function RosterClient({ initialComments }: { initialComments: any
         </div>
 
         {/* Main Character Text Display */}
-        <div className="absolute inset-x-0 bottom-[140px] md:bottom-[200px] flex flex-col justify-end p-6 md:p-16 z-20 pointer-events-none">
+        <div className="absolute inset-x-0 bottom-35 md:bottom-50 flex flex-col justify-end p-6 md:p-16 z-20 pointer-events-none">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeMember.name}
@@ -139,7 +139,7 @@ export default function RosterClient({ initialComments }: { initialComments: any
               className="max-w-2xl"
             >
               {activeMember.nameImage ? (
-                <div className="relative h-48 md:h-72 lg:h-[400px] w-full max-w-[95vw] md:max-w-[1200px] z-10 drop-shadow-xl">
+                <div className="relative h-48 md:h-72 lg:h-100 w-full max-w-[95vw] md:max-w-300 z-10 drop-shadow-xl">
                   <Image
                     src={activeMember.nameImage}
                     alt={activeMember.name}
@@ -167,7 +167,7 @@ export default function RosterClient({ initialComments }: { initialComments: any
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={() => setIsMobileStatsOpen(true)}
-              className="absolute top-[100px] right-4 z-30 pointer-events-auto bg-theme-bg/80 backdrop-blur-md border border-theme-accent/50 text-theme-accent px-5 py-3 rounded-full text-xs font-sans tracking-[0.2em] uppercase flex items-center gap-2 drop-shadow-2xl"
+              className="absolute top-25 right-4 z-30 pointer-events-auto bg-theme-bg/80 backdrop-blur-md border border-theme-accent/50 text-theme-accent px-5 py-3 rounded-full text-xs font-sans tracking-[0.2em] uppercase flex items-center gap-2 drop-shadow-2xl"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -178,7 +178,7 @@ export default function RosterClient({ initialComments }: { initialComments: any
         </AnimatePresence>
 
         {/* Character Stats Display */}
-        <div className="absolute right-4 md:right-16 top-[100px] md:top-auto md:bottom-[240px] flex flex-col items-end z-20 pointer-events-none">
+        <div className="absolute right-4 md:right-16 top-25 md:top-auto md:bottom-60 flex flex-col items-end z-20 pointer-events-none">
           <AnimatePresence mode="wait">
             {(!isMobile || isMobileStatsOpen) && (activeMember as any).stats && (
               <motion.div
@@ -187,7 +187,7 @@ export default function RosterClient({ initialComments }: { initialComments: any
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                className="flex flex-col items-end gap-2 md:gap-4 bg-theme-bg/20 backdrop-blur-md border border-theme-border/50 p-3 md:p-6 rounded-2xl w-[170px] md:w-[300px] drop-shadow-xl relative pointer-events-auto"
+                className="flex flex-col items-end gap-2 md:gap-4 bg-theme-bg/20 backdrop-blur-md border border-theme-border/50 p-3 md:p-6 rounded-2xl w-42.5 md:w-75 drop-shadow-xl relative pointer-events-auto"
               >
                 {isMobile && (
                   <button 
@@ -243,7 +243,7 @@ export default function RosterClient({ initialComments }: { initialComments: any
         </div>
 
         {/* Roster Bottom Bar */}
-        <div className="absolute bottom-0 left-0 w-full h-[160px] md:h-[240px] flex items-center z-50 bg-linear-to-t from-theme-bg via-theme-bg/95 to-transparent">
+        <div className="absolute bottom-0 left-0 w-full h-40 md:h-60 flex items-center z-50 bg-linear-to-t from-theme-bg via-theme-bg/95 to-transparent">
           <span className="font-sans text-xs tracking-[0.2em] uppercase opacity-40 px-4 md:px-12 hidden md:block shrink-0">
             Select
             <br />
@@ -344,7 +344,7 @@ export default function RosterClient({ initialComments }: { initialComments: any
 
               <div className="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar">
                 {memberComments.length === 0 ? (
-                  <div className="w-full h-full min-h-[300px] flex flex-col items-center justify-center text-white/30 font-serif italic text-xl">
+                  <div className="w-full h-full min-h-75 flex flex-col items-center justify-center text-white/30 font-serif italic text-xl">
                     Belum ada pesan untuk {activeMember.name}.
                   </div>
                 ) : (
@@ -352,7 +352,7 @@ export default function RosterClient({ initialComments }: { initialComments: any
                     {memberComments.map((comment, i) => (
                       <div
                         key={comment.id}
-                        className={`relative w-[250px] p-4 shadow-lg flex flex-col gap-2 ${comment.color || "bg-yellow-200 text-yellow-900 border-yellow-300"}`}
+                        className={`relative w-62.5 p-4 shadow-lg flex flex-col gap-2 ${comment.color || "bg-yellow-200 text-yellow-900 border-yellow-300"}`}
                         style={{ rotate: (comment.id * 7 + i) % 10 - 5 + "deg" }}
                       >
                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-red-500 rounded-full shadow-sm border border-red-700"></div>

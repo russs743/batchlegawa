@@ -40,7 +40,7 @@ export default function PacmanModal({ isOpen, onClose }: PacmanModalProps) {
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.8, y: 50, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative z-10 w-full max-w-[800px]"
+            className="relative z-10 w-full max-w-200"
           >
             <PacmanGame onClose={onClose} />
           </motion.div>

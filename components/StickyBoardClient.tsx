@@ -209,7 +209,7 @@ export default function StickyBoardClient({ initialComments }: { initialComments
       {viewMode === "board" ? (
       <div 
         ref={boardRef}
-        className="relative w-full h-[800px] md:h-[900px] bg-[#2a2a2a] rounded-3xl overflow-hidden border-8 border-[#4a3b32] shadow-inner flex items-center justify-center cursor-crosshair"
+        className="relative w-full h-200 md:h-225 bg-[#2a2a2a] rounded-3xl overflow-hidden border-8 border-[#4a3b32] shadow-inner flex items-center justify-center cursor-crosshair"
         style={{
           backgroundImage: "radial-gradient(#ffffff11 1px, transparent 1px)",
           backgroundSize: "20px 20px"
@@ -225,7 +225,7 @@ export default function StickyBoardClient({ initialComments }: { initialComments
             onDragEnd={(e, info) => handleDragExistingNote(e, info, comment.id)}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className={`existing-note-${comment.id} absolute w-[250px] p-4 shadow-lg flex flex-col gap-2 ${comment.color || colors[0]} cursor-grab active:cursor-grabbing`}
+            className={`existing-note-${comment.id} absolute w-62.5 p-4 shadow-lg flex flex-col gap-2 ${comment.color || colors[0]} cursor-grab active:cursor-grabbing`}
             style={{
               left: `calc(${comment.x || 50}% - 125px)`,
               top: `calc(${comment.y || 50}% - 100px)`,
@@ -270,7 +270,7 @@ export default function StickyBoardClient({ initialComments }: { initialComments
             dragConstraints={boardRef}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1.1, opacity: 1 }}
-            className={`absolute z-50 w-[280px] p-4 shadow-2xl flex flex-col gap-3 cursor-grab active:cursor-grabbing ${newNoteColor}`}
+            className={`absolute z-50 w-70 p-4 shadow-2xl flex flex-col gap-3 cursor-grab active:cursor-grabbing ${newNoteColor}`}
             style={{
               left: `calc(50% - 140px)`,
               top: `calc(50% - 120px)`,

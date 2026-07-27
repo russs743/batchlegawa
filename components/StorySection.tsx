@@ -100,7 +100,7 @@ export default function StorySection() {
         </div>
 
         {/* Story Viewer */}
-        <div className="relative w-full max-w-[400px] aspect-9/16 bg-black/5 rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden border border-theme-border/30">
+        <div className="relative w-full max-w-100 aspect-9/16 bg-black/5 rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden border border-theme-border/30">
           
           {/* Progress Bars */}
           <div className="absolute top-0 left-0 w-full p-4 flex gap-1 z-30">

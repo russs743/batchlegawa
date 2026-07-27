@@ -107,7 +107,7 @@ export default function GalleryScroll() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="absolute font-serif text-[clamp(2.5rem,6vw,5.5rem)] font-black text-white leading-[1.1] text-center max-w-[1000px] tracking-tight pointer-events-auto transition-colors duration-500"
+              className="absolute font-serif text-[clamp(2.5rem,6vw,5.5rem)] font-black text-white leading-[1.1] text-center max-w-250 tracking-tight pointer-events-auto transition-colors duration-500"
             >
               Thirteen Unique Paths,
               <br />
